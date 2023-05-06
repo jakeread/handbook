@@ -3,30 +3,75 @@ title: Home
 layout: home
 ---
 
-This is a *bare-minimum* template to create a Jekyll site that uses the [Just the Docs] theme. You can easily set the created site to be published on [GitHub Pages] – the [README] file explains how to do that, along with other details.
+# Machinery's Design Handbook 
 
-If [Jekyll] is installed on your computer, you can also build and preview the created site *locally*. This lets you test changes before committing them, and avoids waiting for GitHub Pages.[^1] And you will be able to deploy your local build to a different platform than GitHub Pages.
+#### Possible Titles 
 
-More specifically, the created site:
+```
+- Machine Design for Makers 
+- Design Patterns from the Field 
+- Machine Design Handbook 
+- Machinery Invention Handbook
+- Machinery Building Handbook
+```
 
-- uses a gem-based approach, i.e. uses a `Gemfile` and loads the `just-the-docs` gem
-- uses the [GitHub Pages / Actions workflow] to build and publish the site on GitHub Pages
+#### Rote TODOs
 
-Other than that, you're free to customize sites that you create with this template, however you like. You can easily change the versions of `just-the-docs` and Jekyll it uses, as well as adding further plugins.
+- pull (and improve?) content from [mechanisms class](https://fab.cba.mit.edu/classes/865.21/topics/mechanical_design/index.html) and [power electronics class](https://fab.cba.mit.edu/classes/865.21/topics/power_electronics/index.html) 
 
-[Browse our documentation][Just the Docs] to learn more about how to use this theme.
+## Mechanical Patterns 
 
-To get started with creating a site, just click "[use this template]"!
+- v-rollers, gothic-arch rollers, linear carriages, linear-shaft-ball-bearings
+	- typical parts from each implementations ("the cannon, the commons")
+- hertz contact (and spreadsheet for)
+	- give radii of contacts, hardnesses (and ref hardnesses to table...),
+- kinematics (!) 
+	- sliding doors jambing 
+	- the 3:2 rule 
+- kinematic mounts 
+- preload
+	- preloading axis w/ flexures 
+	- preload w/ offset cam-type thing 
+- structural loops 
 
-If you want to maintain your docs in the `docs` directory of an existing project repo, see [Hosting your docs from an existing project repo](https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md#hosting-your-docs-from-an-existing-project-repo) in the template README.
+## Transmission / Mechanism Patterns 
 
-----
+- belt stiffness 
+	- (ibid, calculator should do... given length, what's spring-rate? N/mm deflection, )
+	- calculator should have "typical systems" i.e. GT2 stats
+- belt tracking and tensioning
+- transmissions, i.e. steps-per-mm-calculators
+	- belt-and-pinion types
+	- regular ol' pulleys
+	- ball / leadscrews
+	- ... etc 
+- cams, cam-rollers,
+- over-center mechanisms 
 
-[^1]: [It can take up to 10 minutes for changes to your site to publish after you push the changes to GitHub](https://docs.github.com/en/pages/setting-up-a-github-pages-site-with-jekyll/creating-a-github-pages-site-with-jekyll#creating-your-site).
+## Controller Patterns 
 
-[Just the Docs]: https://just-the-docs.github.io/just-the-docs/
-[GitHub Pages]: https://docs.github.com/en/pages
-[README]: https://github.com/just-the-docs/just-the-docs-template/blob/main/README.md
-[Jekyll]: https://jekyllrb.com
-[GitHub Pages / Actions workflow]: https://github.blog/changelog/2022-07-27-github-pages-custom-github-actions-workflows-beta/
-[use this template]: https://github.com/just-the-docs/just-the-docs-template/generate
+- junction deviation 
+- "dynamic prog" lookahead 
+- closed-loop (FOC) control of a stepper motor
+- chopper drivers, "stall guard" 
+- (a spreadsheet) accelerations, torques, and masses 
+
+## Systems Patterns 
+
+- bus topologies
+	- rings, single-medium, duplexes 
+- demux RS485 from UART 
+- COBS, packet delineation 
+- flow-control, 
+
+### Sims and Calculators 
+
+- stepper motor simulator 
+- transmission ratios, etc 
+- mass vs. accelerations... 
+- belts-as-springs ? deflection / mm 
+- impedance matching 
+	- rotor inertia to linear inertia (i.e. ballscrew and slide) 
+	- if you match inertias, you maximize power transfer 
+	- for max accel, minimize total mass *and* match inertias 
+- chip load calculators 
