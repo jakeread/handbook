@@ -1,6 +1,7 @@
 ---
 title: Home
 layout: home
+nav_exclude: true 
 ---
 
 # Machinery's Design Handbook 
@@ -15,64 +16,28 @@ layout: home
 - Machinery Building Handbook
 ```
 
-#### Rote TODOs
+---
+
+### What it Could Contain
+
+Design patterns, reference material, and enumerations (and elucidations) of various practical approaches to real-world machine building tasks. 
+
+### Site Meta
+
+- instead of comments or discussion... folks could be reminded (in footer?) that the site source is on github, and they can make an issue or a PR to improve / change things 
+- ... train an LLM to think and sketch about machines, and put a chatbot in this site ? 
+
+### Rote TODOs
 
 - pull (and improve?) content from [mechanisms class](https://fab.cba.mit.edu/classes/865.21/topics/mechanical_design/index.html) and [power electronics class](https://fab.cba.mit.edu/classes/865.21/topics/power_electronics/index.html) 
 - also pull i.e. [this thing](https://ekswhyzee.com/2019/04/09/gt2-belt-rotary-cad.html) 
 
-## Mechanical Patterns 
+### Organization 
 
-- v-rollers, gothic-arch rollers, linear carriages, linear-shaft-ball-bearings
-	- typical parts from each implementations ("the cannon, the commons")
-- hertz contact (and spreadsheet for)
-	- give radii of contacts, hardnesses (and ref hardnesses to table...),
-- kinematics (!) 
-	- sliding doors jambing 
-	- the 3:2 rule 
-- kinematic mounts 
-- preload
-	- preloading axis w/ flexures 
-	- preload w/ offset cam-type thing 
-- structural loops 
+I've taken a quick pass; I think that individual pages / nuggets are straightforwards but then the top-level organization is not... design is not hierarchichal, so ideally we could hook everything up unilaterally. Perhaps there is a CMS for that. 
 
-## Transmission / Mechanism Patterns 
+--- 
 
-- belt stiffness 
-	- (ibid, calculator should do... given length, what's spring-rate? N/mm deflection, )
-	- calculator should have "typical systems" i.e. GT2 stats
-- belt tracking and tensioning
-- transmissions, i.e. steps-per-mm-calculators
-	- belt-and-pinion types
-	- regular ol' pulleys
-	- ball / leadscrews
-	- ... etc 
-- cams, cam-rollers,
-- over-center mechanisms 
+#### Other's Cool Projects ?
 
-## Controller Patterns 
-
-- junction deviation 
-- "dynamic prog" lookahead 
-- closed-loop (FOC) control of a stepper motor
-- chopper drivers, "stall guard" 
-- (a spreadsheet) accelerations, torques, and masses 
-
-## Systems Patterns 
-
-- bus topologies
-	- rings, single-medium, duplexes 
-- demux RS485 from UART 
-- COBS, packet delineation 
-- flow-control, 
-
-### Sims and Calculators 
-
-- stepper motor simulator 
-- transmission ratios, etc 
-- mass vs. accelerations... 
-- belts-as-springs ? deflection / mm 
-- impedance matching 
-	- rotor inertia to linear inertia (i.e. ballscrew and slide) 
-	- if you match inertias, you maximize power transfer 
-	- for max accel, minimize total mass *and* match inertias 
-- chip load calculators 
+- [james Newton haddington dynamics encoder](https://github.com/JamesNewton/HybridDiskEncoder)
