@@ -10,4 +10,16 @@ I've basically copied [this](https://github.com/just-the-docs/just-the-docs-temp
 
 ### How to dev locally
 
-- testing this, IDK yet 
+Pull the repo, and make sure you have Ruby installed. Run:
+
+```
+bundle install
+```
+
+Good luck, now you should be able to do:
+
+```
+bundle exec jekyll serve 
+```
+
+To launch a local dev server that will automatically rebuild the site on your edits. 
