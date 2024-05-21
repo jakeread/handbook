@@ -12,6 +12,10 @@ layout: page
 - FDM hardware inserts, etc 
 - https://bulkman3d.com/product-category/linear-rail-aluminium-extrusion/mgn/ 
 
+## Other Vendor Accumulators 
+
+- https://www.buildlist.org/ 
+
 ## Phidgets
 
 are actually rad, they have i.e. [leadscrews](https://www.phidgets.com/?prodid=6530), [bldc in nema packages](https://www.phidgets.com/?tier=2&catid=101&pcid=81), [steppers w/ dual shaft](https://www.phidgets.com/?prodid=339), [servos](https://www.phidgets.com/?tier=2&catid=22&pcid=19), and [load cells](https://www.phidgets.com/?tier=1&catid=9&pcid=7) 
