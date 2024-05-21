@@ -11,8 +11,17 @@ layout: page
 - plain bushings (on centerless ground)
 - recirculating ball bushings (on centerless ground) 
 - recirculating ball linear guideways (i.e. MGN12x)
-- v-rollers, gothic-arch rollers, linear carriages, linear-shaft-ball-bearings
+- v-rollers, gothic-arch rollers
+  - "roller coaster wheel" 
+    - flat bearing on ... surface 
 	- typical parts from each implementations ("the cannon, the commons")
+	- https://www.pbclinear.com/Products/Cam-Roller-Technology/Redi-Rail-Linear-Guide lots of good precedent
+    - also looks like `SG15` UXCELL bearings are ideal-ish, these are close to it
+    - check i.e. https://www.aliexpress.us/item/2251832250975713.html
+    - these are "gothic arch" contact, double-row, really... the clear answer
+    - SG15: 6mm rail, 5x17x8 "8kg"
+    - SG20: 8mm rail, 6x24x11 "25kg"
+    - LFR50 (?)
 
 ## Linear, Serial Transmission Patterns 
 
@@ -22,11 +31,14 @@ layout: page
 - belts
 	- belt-and-pinion 
 	- idler-and-pulley (belt loop, traditional, ...)
-  - we want a belt stiffness calculator, with i.e. presets for standard-ish components (GT2 of different widths)
+  - harmonic belt / windlass 
 - rack and pinion 
+  - "cycloidal pinions" 
 - capstan 
 	- winch capstan 
-- can we get a steps-per-millimeter calculator 
+- linear motor:
+  - three-phase and stepper-type 
+  - (an aside?) ASML's levitating drives 
 
 ## Linear, Parallel Patterns 
 
