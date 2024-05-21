@@ -13,6 +13,12 @@ layout: page
 	- i.e. just how a normal stepper driver works 
 - stepper step scheduling 
 
+## Sensing ... 
+
+- linearization, calibration
+- loadcells,
+- adcs ... noise, timing (?) 
+
 ## Systems Assembly Patterns / Networking 
 
 - bus topologies
