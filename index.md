@@ -52,3 +52,11 @@ I've taken a quick pass; I think that individual pages / nuggets are straightfor
 #### Other's Cool Projects ?
 
 - [james Newton haddington dynamics encoder](https://github.com/JamesNewton/HybridDiskEncoder)
+
+#### To Be Filed
+- Belt Tension Experiments
+- Practicum -- experiments
+- bearing block stiffnesses
+- Visual language for expressing machine elements / designs
+- End effectors
+
