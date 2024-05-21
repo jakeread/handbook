@@ -10,12 +10,17 @@ layout: page
 - "dynamic prog" lookahead 
 - closed-loop (FOC) control of a stepper motor
 - chopper drivers, "stall guard" 
-- (a spreadsheet) accelerations, torques, and masses 
+	- i.e. just how a normal stepper driver works 
+- stepper step scheduling 
 
-## Systems Patterns 
+## Systems Assembly Patterns / Networking 
 
 - bus topologies
 	- rings, single-medium, duplexes 
-- demux RS485 from UART 
-- COBS, packet delineation 
-- flow-control, 
+- un-confuse RS485 from UART 
+- link layers 
+	- COBS, packet delineation 
+	- CRC and why we need it 
+- transmission protocols:
+	- flow control, buffering, 
+	- retrying, 
