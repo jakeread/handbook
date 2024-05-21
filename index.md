@@ -6,6 +6,8 @@ nav_exclude: true
 
 # Machinery's Design Handbook 
 
+> the book is a tool 
+
 #### Possible Titles 
 
 ```
@@ -14,6 +16,8 @@ nav_exclude: true
 - Machine Design Handbook 
 - Machinery Invention Handbook
 - Machinery Building Handbook
+- The Art of Machine Design (maybe ?) 
+- The Practice of Machine Design 
 ```
 
 ---
@@ -21,6 +25,13 @@ nav_exclude: true
 ### What it Could Contain
 
 Design patterns, reference material, and enumerations (and elucidations) of various practical approaches to real-world machine building tasks. 
+
+### Other Nuggets
+
+- do we need a disclaimer ? 
+- ashy chart for actuators 
+- (jake) find datasheet of stiffnesses for miniature guide blocks 
+- circuits is its own section 
 
 ### Site Meta
 

@@ -4,6 +4,11 @@ has_children: true
 layout: page
 ---
 
+- stiffness and compliance 
+- basic physics:
+  - statics and dynamics 
+  - simple integrator / simulation for mass * acceleration, 
+- thermodynamics, ish ... 
 - hertz contact 
   - spreadsheet: 
   - give radii of contacts, hardnesses (and ref hardnesses to table...)

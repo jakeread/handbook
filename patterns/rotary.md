@@ -17,6 +17,7 @@ layout: page
 
 - robot arms
 - serial scara arms 
+- polar positioning 
 
 ## Rotary Parallel Mechanisms 
 

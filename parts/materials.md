@@ -4,6 +4,11 @@ parent: Parts
 layout: page
 --- 
 
+- materials is "a bus" but has some relevant sub-topics that would warrant a page or two
+  - epoxy granite
+  - cast iron ? 
+  - lattices and architected materials 
+
 # Materials 
 
 The "ashby chart" relates density and stiffness:
