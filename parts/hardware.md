@@ -1,5 +1,5 @@
 --- 
-title: XHCS
+title: Hardware
 layout: page
 parent: Parts 
 ---
@@ -24,3 +24,7 @@ parent: Parts
   - t-nut inserts 
   - hex inserts, how to print them 
   - ... 
+
+# Test Table 
+
+{% include sheet.html src="hardware_sizes" %}
