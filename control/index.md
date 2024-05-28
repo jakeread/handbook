@@ -2,6 +2,7 @@
 title: Control
 has_children: true 
 layout: page
+nav_exclude: true 
 ---
 
 ## Controller Patterns 
