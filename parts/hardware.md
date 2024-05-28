@@ -25,6 +25,24 @@ parent: Parts
   - hex inserts, how to print them 
   - ... 
 
-# Test Table 
+## Socket Head Cap Screws 
 
-{% include sheet.html src="hardware_sizes" %}
+> Drawing ! 
+
+{% include sheet.html src="hardware_sizes_shcs" %}
+
+## Pitches, Approximate Washer Sizes 
+
+{% include sheet.html src="hardware_sizes_misc" %}
+
+## Button Head Cap Screws
+
+> Drawing ! 
+
+{% include sheet.html src="hardware_sizes_bhcs" %}
+
+## Flat Head Cap Screws 
+
+> Drawing ! 
+
+{% include sheet.html src="hardware_sizes_fhcs" %}

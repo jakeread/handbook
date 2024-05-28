@@ -1,0 +1,9 @@
+<div style="background-color: #f5f6fa; padding: 5px; margin-top: 10px; font-size: 13px">
+{% if include.link %}
+<a href="{{include.link}}" target="blank"><img width="100%" src="{{include.img}}" ></a>
+{{include.caption}}
+{% else %}
+<img width="100%" src="{{include.img}}" >
+{{include.caption}}
+{% endif %}
+</div>
