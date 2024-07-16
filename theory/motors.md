@@ -1,5 +1,5 @@
 ---
-title: motors
+title: Motors
 parent: Theory
 layout: page
 ---

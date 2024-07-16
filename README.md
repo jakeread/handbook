@@ -23,3 +23,19 @@ bundle exec jekyll serve
 ```
 
 To launch a local dev server that will automatically rebuild the site on your edits. 
+
+### Using Math
+
+add `math: katex` to your page's front matter, 
+
+use `$$...$$` delimiters around maths, either inline or with breaklines,
+
+```markdown 
+math can be $$f = ma$$ inlined, or
+
+$$
+u = -Kx
+$$
+
+... broken out 
+``` 
