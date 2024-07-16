@@ -2,7 +2,7 @@
 title: Theory
 has_children: true 
 layout: page
-nav_exclude: true   
+nav_exclude: false  
 ---
 
 - stiffness and compliance 
