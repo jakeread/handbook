@@ -2,6 +2,7 @@
 title: Calculators
 has_children: true 
 layout: page
+nav_exclude: false 
 ---
 
 ## Sims and Calculators 
