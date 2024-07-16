@@ -2,7 +2,7 @@
 title: Reading
 layout: page
 has_children: true 
-nav_exclude: true 
+nav_exclude: true  
 ---
 
 ## Reading Lists and other Paraphanalia 
