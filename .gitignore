@@ -11,3 +11,6 @@ vendor/
 
 # annoying xlsx lockfile 
 ~$*.xlsx 
+
+# ignore jake's log
+log/
