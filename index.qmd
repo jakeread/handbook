@@ -1,0 +1,3 @@
+# Introduction {.unnumbered}
+
+The first computer science advanced placement (AP) test was offered to high school students in 1984. This marked a watershed moment in teaching computer science as a literacy --- or a language --- which individuals can wield to harness the power of computers to solve problems by building their own software tools. Not only had computers that once occupied entire rooms become personal, but they had become malleable. 

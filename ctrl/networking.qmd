@@ -1,0 +1,11 @@
+# Real-Time Networking
+
+- bus topologies
+	- rings, single-medium, duplexes 
+- un-confuse RS485 from UART 
+- link layers 
+	- COBS, packet delineation 
+	- CRC and why we need it 
+- transmission protocols:
+	- flow control, buffering, 
+	- retrying, 

@@ -1,0 +1,3 @@
+# Minimal Time Segments 
+
+> go fast and don't break things 

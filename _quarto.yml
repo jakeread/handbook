@@ -1,0 +1,71 @@
+project:
+  type: book
+
+book:
+  title: "The Handbook"
+  author: "Ilan Moyer, Jake Read et al"
+  date: "7/6/2026"
+  chapters:
+    - index.qmd
+    - part: "Building Blocks and Architectures"
+      chapters: 
+        - arch/one_axis_stage.qmd
+        - arch/two_axis_mechanisms.qmd
+        - arch/three_plus_mechanisms.qmd
+        - arch/topologies_and_structure.qmd
+        - arch/guides_transmissions_actuation.qmd
+    - part: "Design Fundamentals"
+      chapters: 
+        - fund/principles.qmd
+        - fund/structure.qmd
+        - fund/actuators.qmd
+        - fund/elements.qmd
+        - fund/analysis.qmd
+        - fund/materials.qmd
+        - fund/thermodynamics.qmd
+    - part: "Applications and Practice"
+      chapters: 
+        - apps/in_the_wild.qmd
+        - apps/design_patterns.qmd
+        - apps/processes.qmd
+        - apps/enclosures.qmd
+    - part: "Controls"
+      chapters: 
+        - ctrl/overview_arch.qmd
+        - ctrl/networking.qmd
+        - ctrl/process_control.qmd
+        - ctrl/path_planning.qmd
+        - ctrl/velocity_planning.qmd
+        - ctrl/velocity_control.qmd
+        - ctrl/sensing.qmd
+        - ctrl/feedback_control.qmd
+    - part: "Deep Dives"
+      chapters:
+        - ddvs/steppers.qmd
+        - ddvs/min_time_segment.qmd
+    - part: "References and Tools"
+      chapters: 
+        - refs/tables.qmd
+        - refs/materials_ref.qmd
+        - refs/nuts_bolts.qmd
+        - refs/calculators/index.qmd
+        - refs/cots_components.qmd
+        - refs/vendors.qmd
+        - refs/reading/index.qmd
+  references:
+    references.qmd
+
+bibliography: references.bib
+
+format:
+  html:
+    theme:
+      - cosmo
+      - brand
+  typst:
+    toc: true
+    toc-depth: 3
+    number-sections: true
+    # orange-book is default, 
+
+

@@ -1,0 +1,6 @@
+# Thermodynamics
+
+> I mean... it comes up! 
+
+... i.e. how punishing it can be to heat an uncooled chamber,  
+... i.e. power requirements to calculate (and simulate?) rise time of a thermal element (like a heated bed, or a mold...) 

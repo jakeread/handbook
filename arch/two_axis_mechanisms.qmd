@@ -1,0 +1,14 @@
+# Two Axis Mechanisms
+
+## Serial Topologies
+
+- separated (linear)
+- axis-on-axis (linear)
+- same, rotary ?
+- polar plotter ? 
+
+## Parallel Mechanisms 
+
+- corexy
+- h-bot
+- deltaxy

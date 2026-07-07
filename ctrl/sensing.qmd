@@ -1,0 +1,16 @@
+# Sensing
+
+- adc noise, timing, and "it's all voltages to me"
+- linearization and calibration 
+- exponential filter 
+- kalman filters, observers, 
+
+## Sensors
+
+- encoders:
+    - hall (phases), magnetic (diametric)
+    - magnetorestrictive
+    - optical w/ 'glass' 
+    - alignment, nonlinearity 
+- loadcells
+- accelerometers

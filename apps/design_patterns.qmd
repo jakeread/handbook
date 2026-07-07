@@ -1,0 +1,113 @@
+# Design Patterns
+
+> this is... duplicated, for sure, 
+
+## 'Fidgetry'
+
+it's often all about the little bits, innit?
+
+- belt tensioners and trammers 
+- kinematically decoupled leadscrews 
+- clamping vs. set-screw collars, 
+- cams and cam-rollers
+- over-center mechanisms, latches, 
+
+### Timing Belt Tensioners and Trammers 
+
+- http://diyprojects.eu/gallery-of-timing-belt-clamp-ideas-for-linear-motion/ 
+- https://drmrehorst.blogspot.com/2018/12/another-interesting-3d-printer-failure.html 
+
+## Linear Guideway Patterns 
+
+- "ways" (flat surfaces... oil film (normally)) 
+- air bearings ? 
+- plain bushings (on centerless ground)
+- recirculating ball bushings (on centerless ground) 
+- recirculating ball linear guideways (i.e. MGN12x)
+- v-rollers, gothic-arch rollers
+  - "roller coaster wheel" 
+    - flat bearing on ... surface 
+	- typical parts from each implementations ("the cannon, the commons")
+	- https://www.pbclinear.com/Products/Cam-Roller-Technology/Redi-Rail-Linear-Guide lots of good precedent
+    - also looks like `SG15` UXCELL bearings are ideal-ish, these are close to it
+    - check i.e. https://www.aliexpress.us/item/2251832250975713.html
+    - these are "gothic arch" contact, double-row, really... the clear answer
+    - SG15: 6mm rail, 5x17x8 "8kg"
+    - SG20: 8mm rail, 6x24x11 "25kg"
+    - LFR50 (?)
+
+### Linear, Serial Transmission Patterns 
+
+- leadscrews
+	- the leadscrew turns 
+	- the ball-nut turns 
+- belts
+	- belt-and-pinion 
+	- idler-and-pulley (belt loop, traditional, ...)
+  - harmonic belt / windlass 
+- rack and pinion 
+  - "cycloidal pinions" 
+- capstan 
+	- winch capstan 
+- linear motor:
+  - three-phase and stepper-type 
+  - (an aside?) ASML's levitating drives 
+
+### Linear, Parallel Patterns 
+
+- corexy 
+- h-bot
+- "evil mad scientist" ... "axidraw" 
+- "ultimaker style" 
+- the [kaos](https://www.bell-everman.com/products/linear-positioning/kaos-oem) 
+
+## Rotary Transmissions 
+
+- belt reduction 
+- capstan
+- spur gears 
+- planetary gears 
+- harmonics 
+- cycloidal 
+
+### Rotary Serial Mechanisms
+
+- robot arms
+- serial scara arms 
+- polar positioning 
+
+### Rotary Parallel Mechanisms 
+
+- delta robots 
+- parallel scara arms 
+
+
+## Circuit Design Patterns 
+
+> enough circuit know-how for machine designers, but not a deep dive 
+
+- current limiting resitor
+	- LEDs
+	- ... not-microcontroller-frying 
+- pullups / pulldowns 
+	- switches (buttons) 
+	- I2C 
+	- open drain 
+- voltage dividers 
+- rc filters 
+- high pass (capacitance) filters 
+- bypass capacitors 
+- busses / comms 
+	- SPI, I2C, UART, LVDS, CAN ... 
+- bridges (half, full) 
+	- ... power electronics patterns, yikes 
+- adcs, dacs, 
+- connectors...
+	- enumeration, what are common, trade-offs, 
+	- junction resistance (and calculator) 
+
+### Places to look for good EE content 
+
+- eevblog
+- adafruit schemas 
+- sparkfun guides 

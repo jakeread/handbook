@@ -1,0 +1,16 @@
+# The Single Axis Stage
+
+- how it moves
+- key components 
+    - actuation
+        - transmission 
+        - actuator 
+    - guide system
+    - toolhead
+    - surrounding structure 
+- what we might care about
+    - precision
+    - repeatability 
+    - stiffness
+    - range of travel 
+    - dynamic performance 

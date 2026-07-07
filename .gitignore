@@ -6,3 +6,10 @@ _jekyll_old/
 
 # ignore jake's log
 _log/
+
+# quarto ignores 
+/.quarto/
+**/*.quarto_ipynb
+
+# ignore build, copy-paste into `docs/` to pub, 
+_book/
