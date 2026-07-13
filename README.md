@@ -1,32 +1,28 @@
-## Machinery's Design Handbook
+# The Handbook
 
 `WIP`
 
-Should publish to [https://jakeread.github.io/handbook]
+## How to Quarto
 
-### How this (the website) Works
+[Quarto](https://quarto.org/) is [downloadable](https://quarto.org/docs/get-started/) / easy to install, there is also a VSCode extension (see [this guide](https://quarto.org/docs/get-started/hello/vscode.html)).
 
-I've basically copied [this](https://github.com/just-the-docs/just-the-docs-template/tree/main) and the `.github/workflows` info does the magic, instructing github's servers to run Jekyll and pub the files on `push` events to this repo. Not true of the `draft` branch.
+- `_quarto.yml` is the top-level structure, 
+- Open the `handbook` folder in VSCode to edit, 
+- In the terminal, `quarto preview` to live edit:
+  - to render updates, `ctrl + s` in `_quarto.yml` to update, or simply re-run `quarto preview` 
+- `quarto render` will build a full .html and .pdf output, but .pdf will fail if there are any missing links etc. 
 
-### How to dev locally
+## Crossrefs
 
-Pull the repo, and make sure you have Ruby installed. Run:
+```markdown
+## Section {#sec-name}
 
+... later, 
+
+See @sec-name to... 
 ```
-bundle install
-```
 
-Good luck, now you should be able to do:
-
-```
-bundle exec jekyll serve 
-```
-
-To launch a local dev server that will automatically rebuild the site on your edits. 
-
-### Using Math
-
-add `math: katex` to your page's front matter, 
+## Using Math
 
 use `$$...$$` delimiters around maths, either inline or with breaklines,
 

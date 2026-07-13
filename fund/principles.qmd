@@ -14,6 +14,8 @@ However, the trouble with laying elements *right on top of eachother* so as to b
 
 ## Exact Constraint and Degrees of Freedom
 
+> See @sec-kinematics ?
+
 ## Inertia 
 
 ## Impedance Matching
@@ -140,7 +142,7 @@ I can't talk about preload without reminding us of friction: positive preload *a
 
 So, why not perfect preload / zero backlash all the time? Exactly because perfect precision does not exist: if we add even 1/1000 of one mm of clearance, we have backlash, but if we add 1/1000 of one mm of contact, we have preload. Extremely well engineered applications exist where clearances approach a perfect zero, but here even changes to a component's temperature affect it's size, thus changing clearances. This is why extremely advanced equipment goes to the length of temperature controlling all axis and drive systems:
 
-![cooling](dmg-cooling.png)  
+![cooling](images/dmg-cooling.png)  
 [from DMG Mori](https://www.youtube.com/watch?v=0E-_R8ZGZlY)
 
 ### Tribology
@@ -159,7 +161,8 @@ So, why not perfect preload / zero backlash all the time? Exactly because perfec
 
 These are not the same thing: precision is our ability to reliably target the same space in a repeatable manner (aka: repeatability), and accuracy is our ability to hit an *exactly addressed location in real space.*
 
-{% include caption.html img="images/precision-accuracy.png" caption='From <a href="https://en.wikipedia.org/wiki/Accuracy_and_precision" target="new">via WikiPedia</a>' %}
+![](images/precision-accuracy.png)  
+From <a href="https://en.wikipedia.org/wiki/Accuracy_and_precision" target="new">via WikiPedia</a>
 
 I.E. if, when I tell my X Axis to position at 100mm, it winds up at 101mm *every time* it is extremely precise, but not very accurate. If instead it targets somewhere between 100.1mm and 99.9mm every time, it is less precise but more accurate. 
 

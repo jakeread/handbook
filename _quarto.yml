@@ -17,6 +17,7 @@ book:
     - part: "Design Fundamentals"
       chapters: 
         - fund/principles.qmd
+        - fund/kinematics/index.qmd
         - fund/structure.qmd
         - fund/actuators.qmd
         - fund/elements.qmd
@@ -26,18 +27,19 @@ book:
     - part: "Applications and Practice"
       chapters: 
         - apps/in_the_wild.qmd
-        - apps/design_patterns.qmd
+        - apps/design_patterns/index.qmd
         - apps/processes.qmd
         - apps/enclosures.qmd
     - part: "Controls"
       chapters: 
         - ctrl/overview_arch.qmd
         - ctrl/networking.qmd
+        - ctrl/power_electronics/index.qmd
+        - ctrl/sensing.qmd
         - ctrl/process_control.qmd
         - ctrl/path_planning.qmd
         - ctrl/velocity_planning.qmd
         - ctrl/velocity_control.qmd
-        - ctrl/sensing.qmd
         - ctrl/feedback_control.qmd
     - part: "Deep Dives"
       chapters:

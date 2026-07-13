@@ -17,6 +17,40 @@ it's often all about the little bits, innit?
 - http://diyprojects.eu/gallery-of-timing-belt-clamp-ideas-for-linear-motion/ 
 - https://drmrehorst.blogspot.com/2018/12/another-interesting-3d-printer-failure.html 
 
+### Drawing Involutes
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZazlkIwEbpM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### CNC Friendly Gears
+
+[Jens on Machining Cycloidal Gears](https://github.com/fellesverkstedet/fabricatable-machines/wiki/Modules#cnc-friendly-gears)
+
+### Drawing GT2 
+
+From [the aaxis log](https://gitlab.cba.mit.edu/jakeread/aaxis#log) 
+
+![gt2](images/gt2-drawing.jpg)
+
+Or, 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/qV_C6Xu-WKY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Cheap Tension
+
+- integrates motor mount with belt tension 
+- *note* causes belt alignment to change slightly 
+- from [prusa](https://help.prusa3d.com/en/article/adjusting-belt-tension-mk3-s_112380)
+
+![bt](images/belt-tension.png)
+
+### The Winch-Capstan
+
+Capstan drives are typically used in shorter travel environments, since each wrap takes up height on the pulley, long travels end up requiring extremely tall capstans. This winch design pattern doubles up the capstan and trades line back-and-forth, allowing us to wrap multiple times but maintian a static take-on / take-off point for the line. 
+
+![capstan-beehive](images/beehive-capstan.jpg)
+
+{% include video.html src = "https://gitlab.cba.mit.edu/jakeread/lug-capstans/-/raw/master/log/2020-01-04_capstan_success.mp4" %}
+
 ## Linear Guideway Patterns 
 
 - "ways" (flat surfaces... oil film (normally)) 
@@ -35,6 +69,19 @@ it's often all about the little bits, innit?
     - SG15: 6mm rail, 5x17x8 "8kg"
     - SG20: 8mm rail, 6x24x11 "25kg"
     - LFR50 (?)
+
+### Preloaded Linear Ways
+
+I spoke about backlash earlier, so I want to show how I eliminate it in the Clank axis:
+
+![roller-pl](images/roller-load.png)
+
+- only as stiff (in preload direction) as the flexural spring 
+- not adjustable, could be 
+
+### Rotary Reduction Belt and Pinion 
+
+![reduce](images/double-reduce.png)
 
 ### Linear, Serial Transmission Patterns 
 
@@ -61,6 +108,10 @@ it's often all about the little bits, innit?
 - "ultimaker style" 
 - the [kaos](https://www.bell-everman.com/products/linear-positioning/kaos-oem) 
 
+### Linear Rack and Pinion
+
+[Jens on Machining Rack and Pinion](https://github.com/fellesverkstedet/fabricatable-machines/wiki/Modules#cnc-friendly-rack-and-pinion)
+
 ## Rotary Transmissions 
 
 - belt reduction 
@@ -69,6 +120,11 @@ it's often all about the little bits, innit?
 - planetary gears 
 - harmonics 
 - cycloidal 
+
+### Rotary Clamshell 
+
+![section](images/rotary-section.png)
+![clam](images/rotary-clam.png)
 
 ### Rotary Serial Mechanisms
 

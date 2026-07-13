@@ -20,11 +20,11 @@ Because acceleration produces forces that act on the machine chassis ... $$F = M
 
 So, supposing we are a motion controller that ingests line segments, and we want to traverse along a corner at some fixed velocity:
 
-![ang_01](jd_angles_01.png)
+<!-- ![ang_01](jd_angles_01.png) -->
 
 It turns out that it is impossible to traverse this corner at *any* velocity without subjecting the machine to *infinite* acceleration at the junction. This might seem counter-intuitive (especially since machines seem to do this regularely!) but if we think about the y-axis speed alone, it goes from $$0 \rightarrow v\sin(180 - \theta)$$ instantaneously at the junction. 
 
-![ang_01](jd_angles_02.png)
+<!-- ![ang_01](jd_angles_02.png) -->
 
 This is where Junction Deviation comes in. Basically, we trade some precision (we normally don't need to hit the junction *exactly*) for the ability to corner at non-zero velocities. In very many cases, this is a worthwhile trade - especially because only a small deviation can result in vastly improved cornering speeds. Typically, we design these deviations to be ~ similar in scale to our machines' absolute accuracy (i.e. most FDM 3D printers use a JD of around $0.1 \rightarrow 0.2 mm$).
 

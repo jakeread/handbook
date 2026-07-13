@@ -7,7 +7,7 @@
 
 The "ashby chart" relates density and stiffness:
 
-![ashby](ashby.png)
+![ashby](images/ashby.png)
 
 Ben of CBA shows how lattices and metamaterials can expand this space [here](http://cba.mit.edu/docs/papers/19.01.vacuum.pdf) and [here](http://cba.mit.edu/docs/papers/18.06.msec.metal.pdf)
 

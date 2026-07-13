@@ -13,3 +13,9 @@ _log/
 
 # ignore build, copy-paste into `docs/` to pub, 
 _book/
+
+# ignore intermediate build files, e.g. typst: 
+*.typ
+
+# ignore prior/unmerged:
+htmsmaa/

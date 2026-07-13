@@ -6,7 +6,7 @@
 
 {% include caption.html img="contact-patch.png" caption="<a href='../../reading/nasa_roller_bearing_theory_and_app.pdf'>Image Source</a>. Hertzian Contact Patches in a Deep Groove Bearing." %}
 
-... ultimate performance is related to [? Hertz Contact](), and lifetimes vary depending on how they are loaded, environment... the dark art of [? Tribology](). Long form reference: NASA: [Roller Bearing Life Prediction, Theory and Application](../../reading/nasa_roller_bearing_theory_and_app.pdf). 
+... ultimate performance is related to Hertz Contact, and lifetimes vary depending on how they are loaded, environment... the dark art of Tribology. Long form reference: NASA: [Roller Bearing Life Prediction, Theory and Application](../../reading/nasa_roller_bearing_theory_and_app.pdf). 
 
 ### Nomenclature
 
@@ -22,7 +22,7 @@ Stub!
 
 The most common bearing type, "deep groove" ball bearings are designed primarily for radial loading, but can be deployed to handle small axial or momentary loads (with middling and poor success, respectively). This tends to happen more often than it should since these parts are so ubiquitous. 
 
-In momentary loading conditions, it is possible to [preload two deep-groove bearings]() together as if they were an angular contact set. 
+In momentary loading conditions, it is possible to preload two deep-groove bearings together as if they were an angular contact set. 
 
 trade # | id | od | t | dynamic (kN) | static (kN) | price (1, vxb) | note 
 --- | --- | --- | --- | --- | --- | --- | ---

@@ -1,0 +1,476 @@
+# Power Electronics
+
+## Passives
+
+### Resistors
+
+- Ohm's law: V =IR, assuming everyone remembers this
+- Everything is a resistor, ie. has an equivalent series resistance ESR. Look for this number on capacitors, mosfets, lengths of wire (also note that everything is a capacitor and an inductor as well...).
+
+![alt_text](images/image1.png)
+
+### Capacitors
+
+- [Capacitors Summary](https://www.allaboutcircuits.com/textbook/direct-current/chpt-13/electric-fields-capacitance/)
+- Two primary types of capacitors we use when designing power electronics, often we will use both in parallel:
+  - **Ceramic** - Not Polarized, High frequency but lower capacitances
+  - **Electrolytic** - Polarized, higher ESR and therefore suitable for lower frequencies but higher capacitances
+- Capacitors are used in one of two ways
+  - **Bypass capacitors** - In parallel with a load, a capacitor will act like a short duration power supply capable of smoothing out voltage ripples and meeting immediate demand. [Generally it's a good idea to bypass everything](https://www.youtube.com/watch?v=P8MpZGjwgR0). This concept is also integral to switching power supplies, RC filters for signal processing, and much more. Primarily what we will see today.
+  - **Blocking capacitors** - In series with a load a capacitor will "block" direct current and pass alternating current.
+- A small reminder that current represents a flow of charge (1 amp = 1 coulomb/second), and integrating over current yields total charge across a capacitor.
+
+The current through a capacitor is a function of the rate of change of voltage across it, and its capacitance (dielectric material / size + size of your conductors (commonly parallel plates)). When voltage is changing rapidly, (displacement) current will flow "in" or "out" of a capacitor. It's useful to remember that current doesn't actually flow through a capacitor, charges just collect on one side or the other (no continuity!).
+
+![alt_text](images/image2.png)
+
+![alt_text](images/image3.png)
+
+### Inductors
+
+- [Inductors Summary](https://www.allaboutcircuits.com/textbook/direct-current/chpt-15/magnetic-fields-and-inductance/)
+- Convert energy between electric and magnetic fields
+- We will talk about inductors primarily in two ways:
+- **Energy storage** for filtering switching power supplies
+  - Designing an inductor is a balancing act: [Inductor Material and Size/Shape](https://www.micrometals.com/design-and-applications/literature/), turns required to achieve desired inductance at optimal cost and favorable saturation. The inductor is probably going to the costliest single component in an inexpensive power supply.
+  - Can be bought as surface mount components (bottom right of picture below).
+- **Electric motors and generators** can most often be thought of as inductors
+  - Typically you will just be interested in the inductance of your motor, which will inform current rise time, and therefore peak RPM and torque of the motor
+
+The rate of current through an inductor is a function of the voltage across it and its inductance (core geometry and material + number of turns). When current changes rapidly through an inductor (eg. when we flip a switch off in series) voltage will increase or decrease accordingly! Think what would happen in the equation below if we abruptly flipped the switch on an inductor (voltage will increase!). This is why you may have blown up an arduino trying to drive a small brushed motor directly off of I/O without a [flyback diode.](https://en.wikipedia.org/wiki/Flyback_diode) Electric inertia.
+
+![alt_text](images/image4.png)
+
+![alt_text](images/image5.png)
+
+### Diodes
+
+- [Diodes Summary](https://www.allaboutcircuits.com/textbook/semiconductors/chpt-3/introduction-to-diodes-and-rectifiers/)
+- Diodes are the one-way valves of the electronics world and are used everywhere.
+- They have a characteristic forward voltage drop, and won't pass current until it is reached, so not lossless.
+- There are a lot of different types of diodes with uses spanning much wider than controlling current direction.
+  - Silicon diodes are standard when looking at surface mount components, and usually what we mean when we just say "diode." 0.7 V forward voltage drop is typical.
+  - Zener diodes allow current to flow in both directions, and so have a (different) forward and reverse voltage drop, which we will discuss exploiting later.
+  - Schottky diodes can have very low forward voltages (150mV - 450mV) and very fast switching times, so are useful for power electronics circuits. Downsides are comparatively low reverse voltage ratings and high leakage currents.
+  - LED's are light emitting diodes, different wavelengths have different V_fs.
+- We most often regulate current through an LED with a resistor in series. We can use ohm's law to size that resistor…
+  - Using a resistor to limit current is not the most efficient way to accomplish. Later we will talk about DCM.
+
+![alt_text](images/image6.png)
+
+![alt_text](images/image7.png)
+
+## Switching Components 
+
+### FETs - Field Effect Transistors
+
+- [MOSFETs Summary](https://www.electronics-tutorials.ws/transistor/tran_7.html).
+- A solid state switch (with some quirks). We control the switch with a voltage source (gate voltage) proportional to the FET's drain or source voltages. We can't (necessarily) provide a MOSFET with a logic 1 to switch on and a logic 0 to switch off.
+- To turn a FET off and on, we are effectively what is effectively a capacitor across a metal electrode and some N or P-type silicon. As we saw earlier, charging a capacitor takes time, and because FETs are frequently used in applications with high switching frequencies (see next section), we want to ensure that they switch as quickly as possible. Also note that R_dson is proportional to the amount of charge you can build up across that capacitor, as shown in the "typical output characteristics plot" below.
+- Because of this FET drivers are highly recommended in most power electronics applications! See [why we use FET drivers](https://www.youtube.com/watch?v=8swJ_Bnsgl4) (a driver for your driver). Drivers also can also be purchased which simultaneously drive high and low side N-FETS without worrying about a floating source voltage, and automatically prevent shoot through!
+- FETs are constructed such that they have [body diodes](https://techweb.rohm.com/knowledge/sic/s-sic/04-s-sic/6147#:~:text=As%20a%20consequence%20of%20the,the%20MOSFET%20in%20an%20application.) which is important to be aware of.
+
+![alt_text](images/image11.png)
+
+- **N-Channel Mosfets** - Off when gate voltage is at source voltage, and on when gate voltage is at the drain voltage.
+- **P-Channel Mosfets** - Off when gate voltage is at source voltage, and on when gate voltage is at the drain voltage. Good for simple high side switching, but generally more expensive + larger for the same performance as an N-FET.
+- **GaN-FET** - [super high switching speeds, efficiency, and peak power throughput](https://www.powerelectronics.com/technologies/gan-transistors/article/21863347/gan-basics-faqs). Still comparatively new technology that's slowly becoming more readily available.
+- Lots more nuance than what we've discussed, but if you are using an appropriate FET and driver, it becomes easier to think of FETs as simple switches.
+- Let's hop into a datasheet to discuss: [IRF540](https://www.vishay.com/docs/91021/91021.pdf), an N-type MOSFET:
+  - Drain-Source Voltage
+  - Continuous Drain Current
+  - However maximum ratings are not operating ratings - see typical output characteristics.
+
+![alt_text](images/image12.png)
+
+![alt_text](images/image13.png)
+
+### BJTs - Bipolar Junction Transistors
+
+- [Good summary of BJTs and their uses](https://www.electronics-tutorials.ws/transistor/tran_1.html)
+- Very similar function and applications to a MOSFET, but they require non-negligible amounts of current to be kept on, and so are less efficient and rarely used in modern switching power electronics applications.
+
+### GANFets
+
+> stub, but modern and important 
+
+## Transformers and Regulators 
+
+### Linear Regulators 
+
+- Sometimes called voltage references because they have low power capacity, and are often used purely as references in analog circuits. You probably wouldn't be powering a motor off of these supplies.
+- Linear supplies are assembled from passive (as opposed to actively controlled) components, and therefore don't use switching or filtering as we will discuss later.
+- All of these regulators function differently, the commonality between them is that they don't use switching.
+
+#### Voltage Divider
+
+- [Good Voltage Divider Summary](https://www.electronics-tutorials.ws/dccircuits/voltage-divider.html)
+- Can be purely built from resistors (or capacitors although less common).
+- Probably what we are all most familiar with when we think about converting between DC voltages. Unfortunately poor efficiency - a good first step, but we can do a lot better than this.
+- Output voltage is dependent on supply voltage + temperature and component ratings, as well as the impedance at our load.
+- Imagine if R_1 = R_2 = 1000 ohms in the photo below. What would be V_o? What current would be flowing across R1 and R2 relative to our load, and would it be useful current? To get more current through our load what would we need to do to R_1 and R_2? The equations below are an oversimplification because our load is an open circuit.
+
+![alt_text](images/image8.png)
+
+#### Zener Reference
+
+- [Good Zener Reference summary](https://www.electronics-tutorials.ws/diode/diode_7.html)
+- Before we discussed how diodes maintain a constant forward voltage drop
+- Zener diodes can be manufactured with very specific reverse voltages (called their zener voltage).
+- Unlike a voltage divider, zener references are tolerant to changes in their supply voltage, but still can change with thermals.
+- Very commonly used due to accuracy and low part count
+
+![alt_text](images/image9.png)
+
+#### Linear Power Amplifier
+
+- [Here's a good TI whitepaper on LDOs, which are a type of linear power amplifier](https://www.ti.com/lit/eb/slyy151a/slyy151a.pdf?ts=1615215757476&ref_url=https%253A%252F%252Fwww.google.com%252F).
+- Now let's combine the voltage divider and zener reference with an op-amp and transistor to make a much more efficient and capable power supply. Think about what's a reference, and what's seeing the full voltage and current of our circuit (really just the transistor).
+- We didn't talk about op-amps in the components section, but they can be used to make more efficient voltage references without resorting to a switching supply.
+- A linear power amplifier leverages the closed loop nature of an op amp, with a transistor, and therefore can supply greater current than an op amp output alone. \*Note that you are driving the transistor in an intermediate state between cutoff and saturation where efficiency is poor!
+- LDO's which are commonly used to produce various voltage rails in microcontrollers and other ICs are regulators. Inductorless and passive - can be made entirely in silicon!
+- In the equation below: V_L = V_Z \* (1 + R_2 / R_1).
+- If we know that the op amp will try to maintain a constant voltage across inverting and non-inverting inputs, can you see how its output (ties to the gate of the transistor) might tie back to provide feedback to ensure that is the case? Is the transistor fully of or on?
+
+![alt_text](images/image10.png)
+
+#### Bandgap voltage reference
+
+- [Bandgap Voltage Reference Summary](https://www.allaboutcircuits.com/technical-articles/introduction-to-bandgap-voltage-references/)
+- Typically used for instrumentation when accuracy is a high priority
+
+### AC to AC
+
+- [Transformers Summary](https://www.electronics-tutorials.ws/transformer/transformer-basics.html)
+- It's comparatively simple to trade voltage and current in the AC world...
+
+![alt_text](images/image26.png)
+
+### AC to DC
+
+- [Full Wave Rectifier](https://www.electronics-tutorials.ws/diode/diode_6.html)
+- On that note, why do we use 60Hz sinusoidal AC power here in the US, when [DC power transmission is less lossy due to the skin effect](https://www.allaboutcircuits.com/textbook/alternating-current/chpt-3/more-on-the-skin-effect/)?
+- The answer as we will discuss later in the motors section, has to do with the fact that that power generation (ie. spinning electromagnets) often produces in sinusoidal waveforms, and our power distribution network predates the switching power supply and readily available diodes for rectification.
+- AC allows us to inexpensively convert between voltages using transformers (where we prefer long distance transmission to happen at higher voltages). It's also safer for domestic applications. We also switch at relatively low frequencies to consider loss.
+
+![alt_text](images/image27.png)
+
+### Switching Power Supplies (Background)
+
+With all that said, how could we get around the limitations of linear supplies? Poor efficiency + low max power output. Instead let's use switching (FETs or BJTs), and filtering to step voltages down or up, without so many wasteful components.
+
+#### Duty Cycle
+
+- We could imagine a 10V supply chopped at 50% duty cycle might start to look like a 5V supply if chopped at high enough frequencies. Note the distinction between switching frequency and duty cycle!
+
+![alt_text](images/image14.png)
+
+#### The Canonical Cell
+
+- Pretty sure this is sort of an antiquated term, but it refers to the recurring use of a switch, inductor, and capacitor. These components are at the core of the 4 primary switching power supplies we will discuss in the sections below (including the flyback which is not shown in the picture below). By just rearranging them we can accomplish everything we will discuss in the next section.
+- Note that sometimes schematics will show the "switch" as a transistor and a diode (as shown in the pictures below), and sometimes they will show two transistors. Swapping the diode for a transistor is a matter of improving efficiency (no voltage drop across the diode), but introduces other challenges such as shoot-through (another point for half-bridge drivers).
+
+![alt_text](images/image15.png)
+
+#### Half Bridges (again ?)
+
+- The word "switch" used in the section above is an oversimplification.
+- In reality we rarely leave loads floating (particularly if they're inductive because of flyback) - we want to either supply them with current or ground them to discharge.
+- To avoid worrying about timing (what happens if both transistors are on simultaneously?) as well as the complexity of driving high side transistors (what's happening to the source voltage of the high side transistor while we switch), it's common to use a dedicated IC to drive both high and low side FETs called a half bridge driver.
+- As an example, here's the infineon [IR2104 Half Bridge Driver](https://www.infineon.com/dgdl/Infineon-IR2104-DS-v01_00-EN.pdf?fileId=5546d462533600a4015355c7c1c31671).
+
+![alt_text](images/image16.png)
+
+Note the gate drive resistors (remember that everything is an inductor and capacitor) + bucket capacitor tapping into high side source voltage + bypass capacitor. Why are these components here?
+
+#### Characterizing Converter Performance
+
+Three criteria are generally used to characterize the performance of a switched power supply
+
+**CCM vs. DCM** - Is our inductor running out of current?
+
+**Current Ripple** - How much steady state current fluctuation can our load tolerate?
+
+**Voltage Ripple** - Same for output voltage (remember we
+
+The equations below can be used to calculate these parameters for a buck converter, but see the first link for each converter for their specific equations. Think about changing switching frequency effects specs. Note that the inductor is driving our current ripple spec, and the cap is driving the voltage ripple spec.
+
+![alt_text](images/image17.png)
+
+### Buck Converter
+
+- [Overview of buck converter design and component selection](https://www.powerelectronicsnews.com/the-buck-regulator-power-supply-design-tutorial-part-2-1/)
+- [Good animation of a buck converter in operation](https://learnabout-electronics.org/PSU/psu31.php)
+
+![alt_text](images/image18.png)
+
+![alt_text](images/image19.png)
+
+We can relate output voltage to input voltage as a proportion of duty cycle. At D = 1 V_out = V_in. At D = 0.5 V_out = V_in.
+
+Why an inductor and a capacitor? Both are critical for storing energy and they work in tandem to minimize both voltage (capacitor) and current (inductor) ripple. See the equations for voltage and current ripple for a better understanding of why.
+
+### Boost Converter
+
+- [Overview of boost converter design and component selection](https://www.powerelectronicsnews.com/the-dc-dc-boost-converter-power-supply-design-tutorial-section-5-1/)
+- [Good animation of a boost converter in operation](https://learnabout-electronics.org/PSU/psu32.php)
+- If we reverse the direction of our buck converter we create a boost converter. Now we will charge up an isolated inductor in series with the load, and then switch such that both the inductor and source voltage are applied simultaneously to charge the capacitor and load itself. Now those two voltages will sum and can increase
+
+![alt_text](images/image20.png)
+
+![alt_text](images/image21.png)
+
+Again we can relate output voltage to input voltage. Let's think about what happens at low duty cycles. For D = 0.1, V_out = 1.11 _ V_in. For D = 0.9 V_out = 10 _ V_in.
+
+The above suggests that we could achieve infinitely high voltages as D approaches 1. In reality buck converters are not typically run at duty cycles greater than 80%.
+
+### Buck-Boost Converter
+
+- [Good animation of a buck-boost converter in operation](https://learnabout-electronics.org/PSU/psu33.php)
+- Allows us to produce voltages either greater than or less than the supply voltage from a single supply. Often the most economical solution for power supplies &lt;100W when voltages both greater and less than V_in are needed.
+- An indirect power supply - the load never sees the input directly, everything is transferred through the cap and inductor.
+
+![alt_text](images/image22.png)
+
+![alt_text](images/image23.png)
+
+We can switch between acting as a buck converter for D &lt; 0.5, and a boost converter for D > 0.5.
+
+### Flyback Converter
+
+- [Flyback Converter Summary](http://ecee.colorado.edu/~ecen4517/materials/flyback.pdf)
+- A buck-boost converter with the inductor split to form a step-up transformer between the switching and filter stages.
+- Flyback converters are useful for creating high voltages
+- Also noted that the two power stages are isolated by the transformer!
+
+![alt_text](images/image24.png)
+
+_[https://www.coilcraft.com/en-us/edu/series/a-guide-to-flyback-transformers/](https://www.coilcraft.com/en-us/edu/series/a-guide-to-flyback-transformers/)_
+
+### Switched Capacitor Converter
+
+- [Switched Cap Summary](https://www.analog.com/media/en/training-seminars/design-handbooks/Practical-Design-Techniques-Power-Thermal/Section4.pdf) (also called charge pumps).
+- How ICs can leverage the efficiency of a switching power supply without the space (or materials) for an inductor.
+- [Here's a great paper outlining a very simple method of designing switched cap converters](https://ieeexplore.ieee.org/document/4463867)
+- Generally inexpensive and convenient with the right IC for PCB design as well. Typically used to create integer multiples or divisions (or inversion) of a given voltage.
+- Also commonly used to get around the floating source voltage we discussed in driving high side N-FETs (look for "charge pump high" and "charge pump low" pins on your datasheet.
+
+![alt_text](images/image25.png)
+
+## Switching Architectures 
+
+We have seen a few typical "switching layouts" for regulation (the buck / boost converters) but there is a larger family of patterns we find in the power electronics jungle. 
+
+These are typically composed of various arrangements of [half bridges](../switching_regulators/#half-bridges) we saw earlier, but not exclusively. In general, we want to have **control authority** over current *direction* and *amplitude* in various inductors (motors). What follows is an enumeration of some patterns you might find, and where / why you might typically see (or use) them. As well: common additional elements like sensing and gate driving. 
+
+### Current Sensing 
+
+This is applicable / can be added to almost any architecture noted here, and is important before we begin. 
+
+Recall that, for the field strength `B` in a given coil, we have (an idealized) `B = unI` where `u` is a magnetic constant, `n` is the number of turns on our core and `I` is the current. For more see [hyperphysics](http://hyperphysics.phy-astr.gsu.edu/hbase/magnetic/solenoid.html). However, we typically have control over *voltage* and not current directly. 
+
+In the steady state, we can roughly equate `V` to `I` given the equivalent series resistance of an inductor and `V = IR` - but if you inspect a motor datasheet, you will find coil resistances (for i.e. a [NEMA 17](https://www.omc-stepperonline.com/nema-17-stepper-motor/5pcs-of-nema-17-bipolar-59ncm-84oz-in-2a-42x48mm-4-wires-w-1m-cable-and-connector.html) motor) around 1.4 ohms only. Given a 24v supply, this would mean `24v = I * 1.4` and `I = 17.14 amps` - a lot (!) of current, and about 400W of energy: much more than what emerges from a NEMA 17 motor. 
+
+As a result, it is common to use **feedback control** to set currents, but can get away without it *because it takes a long time to reach this steady state* as the magnetic field is not built around the coil instantaneously. 
+
+### Shunt Resistors 
+
+There are a few ways to measure current, the most common of which in PE is the **shunt resistor** where we use a (small, purely resistive) load in-line with out (normally inductive) load:
+
+![shunt](images/shunt.webp)  
+[from Electronic Design](https://www.electronicdesign.com/power-management/article/21807932/currentsense-amplifiers-from-a-to-i) 
+
+Shunts consume power, under the same `I^2 * R` law, so we like to make them small (in the milliohms) but their size is directly related to the measureable voltage drop across them, so we want to make them large. There are specialty resistors available that have high power dissipation ratings (around 1-3 Watts is typical), but we are normally left also amplifying their output voltages, to be read i.e. on a microcontroller ADC between 0 -> 3.3v. 
+
+Switching current is also typically *very noisy* and so we filter it as well. Both of these strategies are seen here: 
+
+![amp](images/shunt-filter-amp.png)  
+[from Dan Komosny](https://www.researchgate.net/publication/221045514_Energy_Demands_of_802154ZigBee_Communication_with_IRIS_Sensor_Motes) 
+
+### Hall Effect Sensing
+
+Somewhat more straightforward, hall effect current sensors pass current through a small magnetic loop, and the field is sensed directly using a hall effect sensor. 
+
+These are typically more expensive and can be slower. For more, see [sparkfun](https://learn.sparkfun.com/tutorials/acs712-low-current-sensor-hookup-guide/the-hall-effect-and-current-sensors) where the image below is from: 
+
+![hall](images/hall-effect-cs.jpg) 
+
+### Software Current Control
+
+One approach to actually control the current involves a digital control loop, normally implemented in the microcontroller. Here, we would sample our current sensor *during the interval where the switch above it is on* to measure current,and would apply some control law (normally PID) to change PWM (switching duty cycle) that effectively changes voltage, thus driving more or less current to meet our target. 
+
+### Hardware Current Control (Chopper Drives)
+
+Chopper drivers are commonplace, i.e. the [A4950](https://www.digikey.com/en/products/detail/allegro-microsystems/A4950ELJTR-T/2626340) (our fav) implements chopper drive to limit current through it's H-Bridge, as do most stepper driver ICs. 
+
+![chopper](images/chopper-drive.jpg) 
+
+With a chopper drive, control is simple: a hardware comparator watches the top of a sense resistor to measure current. When this current exceeds a set limit, the switches are turned off, allowing current to decay. After a (normally fixed, sometimes variable) time, the switches are turned on again. 
+
+Because this is done in hardware, it can be incredibly fast - and does not burden your microcontroller with calculating control outputs. This is a type of 'bang bang' control where we simply turn something *on* when the output is too low, and *off* when it is too high. 
+
+### The Low-Side DC Switch 
+
+So! To switching. The barebones turn-it-on architecture is the low-side DC switch. Here, we connect one side of the load to voltage, and the other side to ground **through** a mosfet. Because the **source** ('negative') terminal of the FET is referenced to ground, we can switch it with a logic level signal. 
+
+Note that in this implementation I include also a flyback diode (D2) so that when the FET (Q1) is open (turned off) current built up in the load (connected at J2) can recirculate. This schematic also shows a shunt resistor (R5) that allows me to measure current, and an RC filter (C2, R1) that calms that signal. The gate also turns an LED on / off, to indicate the switch status.    
+
+![low-side](images/low-side-dc.png)  
+[from my heater module](https://gitlab.cba.mit.edu/jakeread/heater-module/) 
+
+Great for i.e. heaters (resistive loads) or solenoids / relays (single-directional inductive loads). Or driving large LEDs... 
+
+### Half Bridges 
+
+The half-bridge is akin to the totem structures we saw earlier: they can drive one output either 'high' (top switch on, connecting the output to voltage), 'low' (bottom on, connecting the output to ground), or 'high impedence' (both off). If we switch both on, we have a 'shoot through' condition where we connect voltage to ground and (probably) destroy the FETs. 
+
+![totem](images/image16.png)
+
+### H (Full) Bridges
+
+The H-Bridge is extremely common, and is simply an assembly of two half-bridges. This allows us to drive either end of a load to high or low, pushing voltage through in either direction (or none). 
+
+![bridge](images/h-bridge.webp)
+
+There are recirculating current cases as well, allowing an h-bridge to also recirculate current internally. 
+
+![paths](images/current-paths.jpg)  
+[from the DRV8801 datasheet](https://www.ti.com/product/DRV8801)  
+
+This can become somewhat complex / beguiling, as it depends on dynamic states of the inductor etc, but is important to pay attention to when we get into the nitty gritty. I won't claim to completely understand it. Recall that FETs have 'body diodes' that encourage this behaviour. 
+
+Since a stepper motor is nominally two coils (A and B), stepper drivers are typically consisting of two H-Bridges (aka Full Bridges), one per coil. Driving each in succession allows us to 'commutate' the motor. 
+
+![a4988](images/a4988.png)  
+[from the A4988 data sheet](https://www.pololu.com/file/0J450/A4988.pdf) 
+
+My [stepper driver](https://gitlab.cba.mit.edu/jakeread/ucbus-stepper) does the same, with two discrete H-Bridges (A4950), both of which implement chopper drives, giving the circuit full control over the magnetic field generated in the motor. 
+
+### Triple Half Bridges 
+
+Brushless motors have somewhat strange coil arrangements: each of three coils are connected through a central node. This is known as a 'wye' connection:
+
+![triplet](images/triplet.jpg)  
+[from this detailed write-up on BLDC drive](https://hackaday.io/project/3176-gator-quad/log/11053-bldc-motor-and-controller-theory)
+
+Here, we drive current 'in' to one motor lead, and 'out' of another. In the section on commutation, we'll look at this in more detail. 
+
+### Dual Active Bridge (DAB) 
+
+The Dual Active Bridge is the new hotness in power conversion, especially applicable to solid state transformers where we want to pass current in two directions (from the grid, or back to it). 
+
+[paper](https://ieeexplore.ieee.org/abstract/document/175280) 
+
+![dab](images/dab.png)
+
+Here, we can imagine dumping current *into* the coil, or retrieving it *from* the coil, in either direction. Since we are actively switching both coils, we can ensure changing current (and changing magnetic field) to do the transforming or energy handoff. Basically, we can go DC -> AC -> DC seamlessly. Losses only amount to the FET's RDSon!
+
+### Gate Driving 
+
+Now! Recall that FETs require energy to switch on. As discussed earlier, a FET typically performs better when it's gate voltage (Vgs) is large (10v is typical), while our logic signals available from the microcontroller are 0-3.3v or so, and are current limited. 
+
+Recall also that we switch these at high frequency, normally 10kHz or larger. Given a FET's gate capacitance (how much charge is stored in the gate before it switches on), and our switching rate, we can calculate how much current (rate of charge) is required to effectively switch the FET. This can be surprisingly large, in the single digit Amps, while a micro will deliver ~ 35mA only. 
+
+So! We have gate driver ICs, themselves small collections of FETs (normally one half bridge per FET-gate) that do the lifting. 
+
+![drv8302](images/drv8302.gif) 
+
+## Commutation 
+
+I wanted to add a note on how this all comes together when we deal with power electronics. Note that the field of power electronics is typically more interested in i.e. efficient voltage regulation (this effects i.e. how long your phone battery lasts) but in machines land we are typically interested in turning motors around. 
+
+So, commutation is how we do that. In brief, this is how we manipulate *currents in inductors* to build *magnetic fields in motors* to 'pull' the motor-rotor around. Properly 'commutating' a motor means properly aligning this magnetic field to produce maximal torque. 
+
+### DC (Brushed) Commutation
+
+The beauty of the brushed motor is that *we* don't have to commutate it: the brushes do this for us: they are arranged so that power is switched in alternating directions through the motor as it spins. 
+
+![brushed](images/brushed.gif)
+
+### BLDC Commutation
+
+While the circuits are more complicated, brushless motor commutation is in a way simpler than i.e. stepper motors. 
+
+The best way that I have found to think of this is to consider that the *rotor* (which spins) has a static magnetic field generated by i.e. rare earth magnets. This has a direction, a vector we can think about. To 'pull' the rotor around, we want to exert a magnetic field with our *stator* (the magnetic armature / part that is static) which is *90 degrees out-of-phase* with the rotor. The magnetic fields want to line up (this is their minimum energy state) and so we attract the rotor along, at each step (ideally) measuring the position of the rotor, calculating desired currents that will place a magnetic field 90 degrees away from it, etc. Kind of like leading the horse with a carrot. 
+
+### Sinusoidal Commutation / Field Oriented Control 
+
+![bldc](images/bldc.gif) 
+
+With sinusoidal commutation, we control all three phases simultaneously, we can consider that each has a kind of component vector that contributes to the overall field's 'direction'.
+
+The output of these systems is AKA 'space vector pwm' - PWM signals that put a 'vector' of magnetic field in space. However, our 'voltage vector' does not equal our 'current vector' (or actual field vector) - and so **Field Oriented Control** adds the additional step of closed-loop current control into the mix. 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YPD1_rcXBIE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>  
+
+[TI Video on the same topic](https://www.youtube.com/watch?v=cdiZUszYLiA) 
+
+This uses some space transforms that can seem perplexing at first. They are in place to effectively reduce the required bandwidth of our current controllers... This is a whole adventure, I'm just providing pointers here, so I apologize for the brevity. Enter the rabbit hole at your own risk. 
+
+### Six Step Commutation 
+
+The more common approach is 'six step' commutation, below:
+
+![gif](images/bldc-motor-gif.gif) 
+
+This has the advantage of being simple: we connect one of the half-bridges to ground, and another to voltage. This drives current through *two* of the coils simultaneously (so it is, also, slightly less power dense). We can do this easily in hardware with hall switches, something which I am not going to go into at length: basically, hall sensors measure the rotor position by measuring the position of the rotor's magnetic field. 
+
+### Back EMF (BEMF) Sensing
+
+In six-step control (above) we have a 'sensorless' means of measuring the rotor position (but only when it is already swinging) by meausring the 'back elecromotor force'. Basically, the coil that is *off* becomes a rotor position probe: the rotor's magnetic field is driving voltage into it. It's voltage (which we can measure with the microconroller) swings from low to hi (or vice-versa) and when it hits *the center* of our drive and gnd voltages, we know the rotor has made if half-way through one step. We then set a timer that expires when the rotor has completed the step, and continue the commutation. 
+
+### Sensorless Sinusoidal Commutation
+
+Well! Consider that we can only sense back EMF when a coil is not actively switched. How, then, would it be possible to do so when we are driving a full sinusoid into each coil, as above? 
+
+Recall that each of these sinusoids is actually composed of many smaller switching cycles: our duty cycle into each coil is rarely 100% on. So, we *can* sense 'free' coil voltage during PWM off times. 
+
+Sound difficult? Correct. It requires very low-level manipulation of microcontroller peripherals (to i.e. only sample voltage sensing ADCs when voltage driving PWMs are low) and really good input filtering / state estimation. 
+
+There is a [ti doc](https://www.ti.com/lit/an/sprabq3/sprabq3.pdf?ts=1615321583350&ref_url=https%253A%252F%252Fwww.ti.com%252Fsolution%252Fair-conditioner-outdoor-unit) on the topic, and a [microchip app note](https://www.eeweb.com/wp-content/uploads/articles-app-notes-files-sensorless-field-oriented-control-of-a-pmsm-1340055193.pdf). 
+
+### Stepper Commutation 
+
+Stepper commutation is a little bit more straightforward. 
+
+![stepper](images/stepper.gif) 
+
+However, it's complicated by the stepper motor's internal geometric complexity. The most common type we find is the 'hybrid stepper' which is part variable reluctance, part permanent magnet motor.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/VMwv4XFZ2L0?start=161" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Stepper Field Oriented Control
+
+I doubt that I have time for it here, but suffice it to say that a stepper can be treated like a BLDC, and driven with fully sinusoidal (and closed loop) field oriented control. This is what I have developed for my [stepper driver](https://gitlab.cba.mit.edu/jakeread/ucbus-stepper): the controller senses rotor position, and (given a calibration table) can quickly calculate outputs that generate a magnetic field which is 90 degrees offset from the rotor's static field. 
+
+![](images/2021-02-25_cl-step-perf_crf_32.mp4)
+
+I wrote a big ol' [log on how I sorted this out](https://gitlab.cba.mit.edu/jakeread/ucbus-stepper/-/blob/master/log/cl-step-control-log.md) including code snippets etc. 
+
+This results in some great motor performance: 
+
+![](images/2020-10-16_cl-step-speed-03.mp4)
+
+## Removing Heat
+
+Power electronics generate heat! Removing it effectively makes the difference between a performant circuit and a faulty one. 
+
+Simple consideration of PCB layout can help a great deal: most power ICs (PMIC) include some big metal land that can be soldered to a large surface of PCB copper to encourage heat dissipation from the part, as in this note from the A4950 datasheet:
+
+![layout](images/a4950-layout.png) 
+
+We can also consider the extreme case of power management in an electric car, noticing the efforts made to (1) carry power through monster conductors (bus bars, solid copper ribbons) and (2) remove heat with i.e. liquid cooling delivered directly to the FETs. 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/drS3sEsxOO8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+---
+
+## Power Electronics Refs
+
+- [LTSpice is an accessible + powerful tool for circuit analysis.](https://www.analog.com/en/design-center/design-tools-and-calculators/ltspice-simulator.html)
+- [Electronics Tutorials.ws is a great resource](https://www.electronics-tutorials.ws/), along with [All About Circuits.com](https://www.allaboutcircuits.com/)
+- If you are interested in power electronics you should take [Power Electronics Lab](http://web.mit.edu/6.131/www/)!
+- Almost everything we look at can (and probably should) be purchased as an IC or finished assembly, with a few exceptions. Still it helps to make informed decisions if we have some idea of what's going on!
+- [Operating a power supply in DCM for constant current applications](https://www.allaboutcircuits.com/technical-articles/discontinuous-conduction-mode-of-simple-converters/)
+- Good resources for designing PCBs with power electronics in mind:
+  - [Secrets of PCB Optimization - Rick Hartley - AltiumLive 2020](https://www.youtube.com/watch?v=0RyBCnowLsI)
