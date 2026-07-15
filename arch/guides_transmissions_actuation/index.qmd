@@ -1,0 +1,245 @@
+# Guides, Transmissions, and Actuation
+
+## Guides 
+
+I've talked a bit about transmissions but not so much about guides. These are ways of constraining (typically) linear motion so that just the DOF we want loose is left unconstrained. 
+
+### Ways 
+
+The OG linear guide, "machine ways" are often simple i.e. dovetails cut (and then scraped) into cast iron or steel machine structures. 
+
+![ways](images/ways.jpg) 
+
+Extremely overconstrained, very precise fabrication required. Technically "hydrostatic" bearings: ways run along a film of oil at contact. 
+
+### Air Bearings
+
+Typically coupled with linear motors (for motion & preload), air bearings float on a thin film of compressed air. 
+
+![ab](images/air-bearing.jpg)
+
+Basically: air hockey tables, but extremely precise. As the air film becomes thinner its stiffness increases dramatically. So, to play the air bearing game we have to bring big precision (typically in the form of flatness) to the table.
+
+However! These can be cheap to build, as our very own David Preiss shows:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/vuzoEe_ykmM?start=168" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Linear Carriage
+
+![circ](images/lr-circ.jpg) 
+
+- stiff! 
+- expensive (but less so lately)
+- low friction (it's a ball bearing)
+
+These are rad, caveat is that you can't choose length, and unless you order from a "real" manufacturer, specifying i.e. preload is near impossible and / or you will get batches of parts with varying performance. This means that using cheap linear rail is possible for one-off projects (where you can tune, or pick from a batch), but is less possible when you want to make thousands of a product and still pass QC. 
+
+### Linear Shaft
+
+![ls](images/linear-shaft.jpg)
+
+- often 'simply supported' beams of questionable depth: not very stiff 
+- cheap(er) but still difficult to get exactly the right length spec
+    - i.e. this means we often end up designing machine size to suit available rail lengths, not the other way around. often this is OK 
+- (can be) low friction, same caveat as with linear carriages applies 
+- can be used with roller (recirculating ball) bearings, or simple i.e. bronze or ptfe bushings 
+
+### Roller Rail
+
+Here we align some rollers (probably bearings) along a rail / structure:
+
+![opb](images/open-roller.webp)  
+[from OpenBuilds](https://openbuilds.com/) with proprietary extrusion
+
+- cheap
+- any length you want 
+- design-your-own preload 
+- fairly robust 
+
+[clank](https://gitlab.cba.mit.edu/jakeread/clank) is all roller rail. 
+
+### Linkages
+
+[Slocum on Linkages](http://pergatory.mit.edu/resources/FUNdaMENTALs%20Book%20pdf/FUNdaMENTALs%20Topic%204.PDF) 
+
+- it's levers all the way down 
+- structure & mechanism, together at last 
+- possible to simulate in most CAD packages 
+- consider backlash at each pin joint 
+- consider nonlinearity of motion 
+- simple linkages: often very useful
+- complex linkages: often very *interesting* 
+
+![fb](images/grashoff_four_bars.png) 
+
+![cheetah](images/cheetah.png)  
+[from MIT Cheetah](https://ieeexplore.ieee.org/abstract/document/7827048) 
+
+![wishbone](images/wishbone.jpg)  
+[from Wiki](https://en.wikipedia.org/wiki/Double_wishbone_suspension)
+
+### Flexures 
+
+- any linkage-type mechanism, but with extremely small, zero-backlash deflections 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/6LsUN2KlfIk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PaypcVFPs48?start=340" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+- flexures are for nano-positioning / small stuff 
+- Dan Gelbart is one of the GOATs 
+- actually (except for stiffness) zero backlash 
+- large machine size relative motion 
+    - strain must be small 
+
+The basic design pattern for a one DOF stage is here:
+
+![dp](images/flexure-pattern.png)
+
+This can of course be expanded into multiple axis *and* we can use flexural beams as kinds of linkages, as [Zach](https://fab.cba.mit.edu/classes/865.21/people/zach/modularflexures.html) can show. 
+
+Flexures are very cool! They can show up all over the place, you can put them into anything very easily (i.e. for the adjustments I mentioned earlier: flexures let you make zero-cost mechanisms). If you want to do a deep dive, see [amy makes stuffs' hackaday lecture](https://www.youtube.com/watch?v=K0wr_ZhhtbE). 
+
+#### Flexure Linkages
+
+[Zach's MicroPanto](https://gitlab.cba.mit.edu/zfredin/micropanto) using [super-elastic flexures](https://gitlab.cba.mit.edu/zfredin/microstage). 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/u6EFz45_r_Y?si=3EjGvFZE0uGMP6Y3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+## Linear Transmissions
+
+### Belt
+
+Probably the most common, belts (or more particularely for machines: **timing belts**) transmit force via tension, and index position using teeth. 
+
+![cs](images/tb-cross.png) 
+
+Belts have a "pitch" (the distance between teeth), and each have unique tooth designs. It's often useful to be able to draw these profiles into CAD models to i.e. make belt clamps or custom sized pulleys, I have an example of how to do that up in the [approaches section](../approaches) of this class. 
+
+#### Tensioning
+
+Keep in mind that belt tension is critical to a quality drive *and* that your tensioning device *is also part of the structural loop* and so a good detail design of your tensioning device is critical if you want this to work well. 
+
+#### Clamping
+
+Firmly securing your belt to the machine is another critical juncture: if this connection is not stiff, your machine will not be stiff. There are a handful of ways to do this, and if I have time I'll return here and document a few of them. 
+
+#### Tracking
+
+This refers to the motion a belt makes *along the axis of it's pulley / idler* and is important to consider in high-quality belt drives. 
+
+![align](images/belt-align.jpg)
+
+![bt](images/belt-tracking.png) 
+
+### Capstans 
+
+Dear to my heart are capstan / wire rope transmissions. These are more common in "well-defined" (as in, not continuous rotation) rotary axis, like robot arms etc:
+
+![cap](images/capstan-eg.png) 
+![cap](images/2020-02-28_capstan-mit-museum.jpg)
+
+With a capstan, we use the [capstan equation](https://en.wikipedia.org/wiki/Capstan_equation) or more accurately the friction it generates in order to transmit rotary force into linear "pull" on a wire rope: relatively stiff tensile members. 
+
+![synth-cap](images/synth-cap.jpg)
+[from Mazumdar et all 2016](https://www.osti.gov/pages/servlets/purl/1340266) 
+
+Notice that the wrap along the capstan is set in a fixed helix: we cannot use these exactly like pulleys, as the wire rope "walks" up-and-down the length of the capstan during actuation. 
+
+Terminating wire rope ends is also of critical importance, as the capstan equation only works when positive preload is present. 
+
+I [tried for a while](https://gitlab.cba.mit.edu/jakeread/lug-capstans) to make machines like this, and I still think the approach is promising for very high-performance drives, but wasn't going to work with a majority 3D Printed components (consider esp. a lack of concentricity on a captan, and steel wire rope's limited ability to stretch). 
+
+### Screws
+
+![bs](images/ball-lead-screw.webp) 
+
+Leadscrew (cheap, higher friction) and ballscrew (expensive, lower friction) drives are the "standard" for high quality motion (that doesn't need to be blazing fast) and typically go along with COTS linear carriages, like this:
+
+![bs](images/ballscrew.png) 
+
+Screws also have "pitch" that defines how many units of forward motion occur with each rotation, and have an integer count of "leads" - how many "starts" the screw has. 
+
+Screws can make for great high-force transmissions when the pitch is small, and also great high-speed transmissions when the pitch is large. Ballscrews, being low friction *and* high stiffness (consider the cross-sectional area of a screw vs. that of a belt), are the most common drive in modern "high performance" machines. However, both ball screws and the linear rails they work alongside are items where we simply pay for precision.
+
+#### Consider
+
+The classic layout for these drives (two linear rails, one lead or ballscrew) are over-constrained: both linear rails *and* the ballscrew constrain a complete axis of motion, so when assembling we have to take care to ensure that they are well aligned, as takes place in [this video](https://www.youtube.com/watch?v=mLCHT2ywk5A). We typically do this with alignment jigs (like long parallels) or with machined-in alignment features on the structure they are mounting to. 
+
+### Rack and Pinion 
+
+These drives are common on larger, stiffer gantry machines (shopbot included).
+
+![rp](images/rack-01.jpg)
+![rp](images/rack-02.jpg)
+
+While stiff, these can be tricky to preload and often require an additional reduction between the motor and pinion to achieve the desired force output. Additionally, manufacturing racks can be troublesome (but often worth it) or expensive. In terms of setup, though, and design nuance, these are fairly straightforward. 
+
+We also have more modern "roller racks" where we dont' have involute teeth engaging involute teeth, but rollers engaging *cycloidal* teeth:
+
+![roller](images/roller-pinion.jpg)
+
+These are similar to Jens' machineable rack-and-pinions:
+
+![jens](images/jens-rp.png)
+
+I spy on Jens' website another exciting development:
+
+![jrr](images/jens-roller-reduction.JPG)
+
+Both [from here](https://github.com/fellesverkstedet/fabricatable-machines/wiki/Modules#cnc-friendly-rack-and-pinion), where Jens also documents the pros / cons / lessons learned from manufacturing these. 
+
+#### Consider 
+
+Like in the lead / ballscrew, our rack also defines a linear axis of motion (along with the linear guide it presumably rolls on), and so if our rack and guide are out of alignement, the rack's tooth mesh will change slightly during the course of travel. 
+
+## Rotary Transmissions
+
+### Planetary Gearboxes
+
+Planetary gearboxes are relatively small size for high reduction. You'll find them in a lot of components: they are also the standard gear topology for i.e. power drills and drivers, and most automatic (car) transmissions. 
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ARd-Om2VyiE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+We typically see the "sun" gear as an input, and the "planets" are attached to an output (via their shafts). 
+
+![plan](multistage-planetary.png)  
+[from Power Transmission World](http://www.powertransmissionworld.com/powerful-analysis-of-wind-turbine-gearboxes/) 
+
+Keep in mind that these normally present noticeable backlash, unless you spend a lot of money (or time) on a precision set, where you will find only very little backlash. 
+
+### Harmonic Drives
+
+These are the beating heart of most robot arms, originally developed for the lunar rover in the 1950s. They use a 'strain wave' gear and 'strain generator' ... it's best just to watch one to understand:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bzRh672peNk?start=96" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+These are possible to make at lower cost i.e. with a printer, but are limited by gear meshing properties of plastics (not good) and load carrying through the thin strain wave element (also not good in plastics).
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xlnNj9F37MA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Jens has also been able to mill one of these:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/JpRY5eMUFKg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> 
+
+### Cycloidal Drives
+
+Similar in principle to a harmonic drive, these use a "wobbling" rotor that engages rollers around the edge sequentially:
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/KCLrzAtq3j4" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Complexity arises from bringing the "wobble" output back to a plain rotary output, but these can also be made with i.e. 3D Printed components at a typically higher success rate than strain wave gears (as we don't rely on material flexibility). Precision of the gear and roller profiles is paramount.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/-065J34xC5o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+Keep in mind that with high reduction drives we are often concerned not just with *total reduction* but also with the *quality of motion* that they deliver: whether it is highly linear or not. 
+
+## Actuation 
+
+motors, solenoids, air, lorenz, voice coil, ? 
+
+### Motors, Controllers and Stiffness 
+
+The principle of stiffness (@sec-fund-stiffness) extends to motors, actuators, and their controllers. Stepper motors have torque curves, which are related to but not directly equal to their stiffness[^stepper-stiffness]. For a quick intuitive sense of the statement: a stepper motor uses a magnetic field to hold a rotor at a particular angle. That magnetic field is like a spring; it does not *lock* the rotor into it's angle, it pulls it there with a limited force. 
+
+Closed-loop controllers also have stiffnesses; it's no mistake that the generic formulation of a controller $$(u = -Kx)$$[^whereis-classic] uses $$K$$ (the same as we use to denote spring constants) to name its matrix of gains (where $$u$$ is the systems' outputs and $$x$$ is it's current states). Our controller denotes how much force (stress) our servo exerts for a given displacement (strain). 

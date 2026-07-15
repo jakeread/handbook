@@ -1,0 +1,9 @@
+# Structure
+
+### Structural Loops 
+
+The stiffness of an entire machine is made up of many components. Typically, we are interested in i.e. how much a cutting head deflects with respect to the piece of stock it is meant to cut, in that case a "structural loop" - or the machine's complete load path - looks something like this:
+
+![loops](images/structural-loops.png)
+
+It's important to remember that structural loops include *all of the transmission and guide elements in a machine* - so if we have i.e. a belt along any axis, the structural loop (in that degree) can be no stiffer than that belt. Structural loops *also include motors and their controllers,* as we discuss in the proceeding [Stiffness](stiffness.html) section. 

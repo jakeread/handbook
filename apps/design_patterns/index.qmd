@@ -12,12 +12,7 @@ it's often all about the little bits, innit?
 - cams and cam-rollers
 - over-center mechanisms, latches, 
 
-### Timing Belt Tensioners and Trammers 
-
-- http://diyprojects.eu/gallery-of-timing-belt-clamp-ideas-for-linear-motion/ 
-- https://drmrehorst.blogspot.com/2018/12/another-interesting-3d-printer-failure.html 
-
-### Drawing Involutes
+## Drawing Involutes
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZazlkIwEbpM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
@@ -25,7 +20,7 @@ it's often all about the little bits, innit?
 
 [Jens on Machining Cycloidal Gears](https://github.com/fellesverkstedet/fabricatable-machines/wiki/Modules#cnc-friendly-gears)
 
-### Drawing GT2 
+## Drawing GT2 
 
 From [the aaxis log](https://gitlab.cba.mit.edu/jakeread/aaxis#log) 
 
@@ -34,6 +29,39 @@ From [the aaxis log](https://gitlab.cba.mit.edu/jakeread/aaxis#log)
 Or, 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/qV_C6Xu-WKY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Belt Transmission Patterns 
+
+### Timing Belt Tensioners and Trammers 
+
+- http://diyprojects.eu/gallery-of-timing-belt-clamp-ideas-for-linear-motion/ 
+- https://drmrehorst.blogspot.com/2018/12/another-interesting-3d-printer-failure.html 
+
+### "Standard" Pulley Layout 
+
+Most "fast" machines you find in the world will use this kind of design: it minimizes "flying mass" (i.e. the heavy motor is stationary) and is fairly simple to incorporate into a design. 
+
+![prusa](images/prusa-x.jpg)
+[the Prusa X Axis](https://reprap.org/wiki/Prusa_i3_Rework_X_and_Y_axis_motions)
+
+For a different scale, the Zund:
+
+![znd](images/2020-01-07_zund-01.jpg)
+![znd](images/2020-01-07_zund-02.jpg)
+
+### "Pinion" Pulley Layout
+
+These are favoured sometimes as they can increase belt stiffness by about 2x (as the length is halved). They can also be easier to implement, have less tracking issues (see below), and sometimes simply "fit" better into a machine (i.e. this is a way to move the motor around in layout). 
+
+![bp](images/belt-and-pinion.png)
+[the OpenBuilds B & P](https://openbuilds.com/builds/v-slot%E2%84%A2-belt-pinion-example-build.97/)
+
+**a note:** I will say I am a bit irked by Open Builds' use of linear rollers to double as idlers, however it does reduce cost & complexity. 
+
+The implementation below (though patented) uses two belts that mesh with one another at the idlers to increase stiffness 2x again: 
+
+![servo](images/servobelt-detail.png) 
+![ServoBelt Linear Drive from Bell Everman](https://www.bell-everman.com/products/linear-positioning/servobelt-linear-sbl)
 
 ### Cheap Tension
 

@@ -1,0 +1,32 @@
+# Extreme Precision
+
+## Wafer Steppers
+
+[How an ASML Lithography Machine Moves a Wafer](https://www.youtube.com/watch?v=1fOA85xtYxs)  
+
+![asml-litho](asml-litho.png)
+
+![air-bearings-and-interferometers](litho-interferometers.png)
+
+![metroframe](metroframe-etc.png)  
+![bodes](asml-bodes.png)  
+
+[Performance Results of a New Generation of 300mm Lithography Systems](performance-results-of-300mm-litho.pdf)  
+[Control of Wafer Scanners: Methods and Developments](Control_of_Wafer_Scanners_Methods_and_Developments.pdf)  
+
+- linear motors (long stroke) and voice coil actuators (short stroke)
+- older generations were air-bearings and differential interferometers
+- latest (in a vacuum) are maglev on hallbach arrays w/ many interferometers 
+
+![maglev](maglev-stage.png)
+
+## NIST MechE
+
+![one](nist/nist-01.jpg)
+![one](nist/nist-02.jpg)
+![one](nist/nist-03.jpg)
+![one](nist/nist-04.jpg)
+![one](nist/nist-05.jpg)
+![one](nist/nist-06.jpg)
+![one](nist/nist-07.jpg)
+![one](nist/nist-08.jpg)

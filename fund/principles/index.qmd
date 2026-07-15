@@ -18,6 +18,14 @@ However, the trouble with laying elements *right on top of eachother* so as to b
 
 ## Inertia 
 
+$$
+F=MA
+$$
+
+This is just to say that mass relates to our ability to accelerate. This is why you will find many machine designers in the wild with fetishes for lightweight-ness. It is often worth the effort, especially for the 'final stage' of flying mass: the tool head. 
+
+Consider also that minimizing mass is also likely to minimize stiffness. We can be fast *and* stiff *and* heavy if we also spend thousands of dollars on high power drives and use tens of kW of energy. 
+
 ## Impedance Matching
 
 ## Alignment of Forces 
@@ -27,7 +35,7 @@ A relatively simple machine layout principle: whenever possible, we want loads t
 ![slocum](images/slocum-alignment.png)  
 [from Slocum's FUNdaMENTALs](http://pergatory.mit.edu/resources/FUNdaMENTALs%20Book%20pdf/FUNdaMENTALs%20Topic%203.PDF) 
 
-## Stiffness and Compliance 
+## Stiffness and Compliance {#sec-fund-stiffness}
 
 Understanding the subtlety of stiffness is probably the most important element you can take away from this section of machine class. The idea of 'stiffness' will turn up throughout, so I need to start here. 
 
@@ -51,20 +59,6 @@ Belts also have a stiffness rating, [this paper](https://www.mdpi.com/2218-6581/
 There's also a [gates document on belt tensile properties](ref/belt-tensile-properties.pdf)
 
 Just picking the 400mm length of GT2 belt above, we see it deflects about 10mm under 500N of load (just before it breaks), so we have ~ **0.05 N / um** of stiffness. On the other hand, even our smallest COTS linear guide above has **87 N / um** of stiffness, for about three orders of magnitude difference. These are the kinds of 'ball-parking' exercises you can do during early design phases to pick winners.
-
-### Structural Loops 
-
-The stiffness of an entire machine is made up of many components. Typically, we are interested in i.e. how much a cutting head deflects with respect to the piece of stock it is meant to cut, in that case a "structural loop" - or the machine's complete load path - looks something like this:
-
-![loops](images/structural-loops.png)
-
-It's important to remember that structural loops include *all of the transmission and guide elements in a machine* - so if we have i.e. a belt along any axis, the structural loop (in that degree) can be no stiffer than that belt. Structural loops *also include motors and their controllers,* as we discuss in the proceeding [Stiffness](stiffness.html) section. 
-
-### Motors, Controllers and Stiffness 
-
-This extends to motors, actuators, and their controllers. Stepper motors have torque curves, which are related to but not directly equal to their stiffness[^stepper-stiffness]. For a quick intuitive sense of the statement: a stepper motor uses a magnetic field to hold a rotor at a particular angle. That magnetic field is like a spring; it does not *lock* the rotor into it's angle, it pulls it there with a limited force. 
-
-Closed-loop controllers also have stiffnesses; it's no mistake that the generic formulation of a controller $$(u = -Kx)$$[^whereis-classic] uses $$K$$ (the same as we use to denote spring constants) to name its matrix of gains (where $$u$$ is the systems' outputs and $$x$$ is it's current states). Our controller denotes how much force (stress) our servo exerts for a given displacement (strain). 
 
 ### Stiffness and Chatter[^chatter]
 
@@ -94,6 +88,29 @@ If we increase stiffness, we raise the resonant frequency - and if we add mass, 
 
 ## Tolerance and Fit
 
+### Flatness, Straightness
+
+It's worth noting that *nothing is truly flat* and (given no other inputs) a linear axis can only be as accurate as the structure it runs on. 
+
+- cheap to reference, expensive to machine
+- [lugs](https://gitlab.cba.mit.edu/jakeread/lug-capstans)
+
+### Concentricity 
+
+### Adjustment 
+
+When you're designing a machine, it's worth planning ahead for adjustment. Most of the subtleties in machine design involve building small mechanisms for adjustment into larger assembles. These can include:
+
+- belt tensioning (a kind of length adjustment)
+- tramming (angular adjustments on linear axis) 
+- levelling (i.e. printer beds are rarely "simply secured" to a machine)
+
+Many adustments can be achieved with simple slots, otherwise aided with set-screws or other threaded adjustment mechanisms. 
+
+### Clearance and Interference Fits 
+
+- e.g. calculating dowel press force / friction force 
+
 ## Backlash 
 
 "Backlash" is best described as the 'dead zone' between positive and negative control inputs. From [wiki](https://en.wikipedia.org/wiki/Backlash_(engineering)):
@@ -118,13 +135,15 @@ If we leave something too loose we find backlash, but if we over-tighten we find
 
 Consider these bearings:
 
-{% include caption.html img="images/bearing-clearances.png" caption='From <a href="https://www.nationalprecision.com/info-library/technical-data/bearing-preload/" target="new">National Precision</a>' %}
+![bearing](images/bearing-clearances.png)   
+[from National Precision](https://www.nationalprecision.com/info-library/technical-data/bearing-preload/) 
 
 Preloading is the art of building some *positive clearance* (as in, some ensured contact) between machine elements. In a way, we can even think of tightening bolts in a structure as preload: we are tensioning some spring force into a fastener to ensure that elements of our structure are constantly loaded into one another. Recall that our bolts are not innocuous hunks of threaded metal: their lengths make up a *very stiff* spring: when we torque a bolt to spec, we are really tensioning the bolt-as-a-spring to some preload spec. 
 
 The same kind of concept can apply to motion elements, i.e. how these bearings are tensioned into one another so as to ensure that the balls and races are in constant, deterministic contact: 
 
-{% include caption.html img="images/bearing-preload.jpg" caption='From <a href="https://www.bearingtips.com/preload-necessary-bearing-applications/" target="new">Bearing Tips</a>' %}
+![pl](images/bearing-preload.jpg)  
+[from Bearing Tips](https://www.bearingtips.com/preload-necessary-bearing-applications/)
 
 The same principle can apply in linear guides, lead screws, etc.
 

@@ -13,12 +13,12 @@ book:
         - arch/two_axis_mechanisms.qmd
         - arch/three_plus_mechanisms.qmd
         - arch/topologies_and_structure.qmd
-        - arch/guides_transmissions_actuation.qmd
+        - arch/guides_transmissions_actuation/index.qmd
     - part: "Design Fundamentals"
       chapters: 
-        - fund/principles.qmd
+        - fund/principles/index.qmd
+        - fund/structure/index.qmd
         - fund/kinematics/index.qmd
-        - fund/structure.qmd
         - fund/actuators.qmd
         - fund/elements.qmd
         - fund/analysis.qmd
@@ -45,13 +45,14 @@ book:
       chapters:
         - ddvs/steppers.qmd
         - ddvs/min_time_segment.qmd
+        - ddvs/precision-frontier/index.qmd
     - part: "References and Tools"
       chapters: 
         - refs/tables.qmd
         - refs/materials_ref.qmd
-        - refs/nuts_bolts.qmd
+        - refs/nuts_bolts/index.qmd
         - refs/calculators/index.qmd
-        - refs/cots_components.qmd
+        - refs/cots/index.qmd
         - refs/vendors.qmd
         - refs/reading/index.qmd
   references:

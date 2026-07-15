@@ -1,0 +1,77 @@
+# Nuts and Bolts
+
+> aka fasteners, hardware, ... 
+
+- nuts and bolts, forever 
+  - tables of head diameter, washer sizes, ... 
+- nomenclature:
+  - shcs, bhcs, ... 
+- galvanic corrosion
+- tightening torques
+  - driver torque stipping limits
+  - "science-mode torx vs. hex head vs. robinson debate" 
+- "other fasteners"
+  - plastic thread-forming, thread forming 
+  - self threading (cutting) 
+  - wood screws, self-cutting, 
+  - inserts
+    - PEM-nuts, 
+    - helicoils, 
+    - heat-set inserts 
+- "patterns"
+  - t-nut inserts 
+  - hex inserts, how to print them 
+  - ... 
+
+Specifying the right hardware is often left to guesswork, but there's real engineering to do if you want to get serious. Prof. Culpepper goes through that [here](https://ocw.mit.edu/courses/mechanical-engineering/2-72-elements-of-mechanical-design-spring-2009/lecture-notes/MIT2_72s09_lec10.pdf). 
+
+I tend to buy 18-8 stainless hardware, but many hardcore mech-e's prefer black oxide (which has higher hardness and stiffness, but can corrode eventually) or zinc-coated steel, which will corrode much slower but is more expensive than 18-8 or BO. I choose 18-8 because in most cases I am fastening 3D Printed (FDM / Plastic) components, or aluminum, both of which it is well suited for. 
+
+**Galvanic Corrision** is a phenomenon where bad fastener-to-fastened metal mixtures can accelerate corrosion, and need to be paid attention to when fastening i.e. cast iron with stainless hardware. For more, you can read [the wiki on the topic](https://en.wikipedia.org/wiki/Galvanic_corrosion) or reference this chart:
+
+![chart](images/galvanic-chart.png)  
+[from Monarch Metal](https://www.monarchmetal.com/blog/galvanic-corrosion-common-questions-answered/) 
+
+### Hardware Naming 
+
+We use shorthands for different types of hardware. While you might find these in the wild with i.e. phillips heads, those are a **sin** and you should only ever pick hex-head hardware, or torx (which provides better... torque).
+
+**SHCS** refers to Socket Head Cap Screws, which are normally the first pick. Length is measured from the bottom of the head to the tip.
+
+SHCS should be accompanied by a washer, as a rule, unless you are throwing caution to the wind. This is especially true when you are fastening into a slot. 
+
+![shcs-dwg](shcs-dwg.gif)
+
+**FHCS** refers to Flat Head Cap Screws, which are appropriate when a flush surface is desired, or hardware *position* is critical: the tapered insert asserts a particular position for the screw. I.E. do not use where adjustment is desired. Length is measured from the *top* of the head to the tip.
+
+![fhcs-dwg](bhcs-dwg.gif)
+
+**BHCS** refers to Button Head Cap Screws, which are a nice lower-profile alternative to SHCS, but with reduced drive size, so are easier to strip heads out of. Length is measured from the bottom of the head to the tip.
+
+![bhcs-dwg](fhcs-dwg.gif)
+
+Low-Profile SHCS **LPSHCS** exist, and some engineers keep kits of these instead of standard SHCS, but IMHO if your designs are so sensitive that you are having to use LPSHCS where a button head would do, you are either sending your payloads into space (in which case, congratulations) or you have put yourself into a pinch that some flexible design decisions could have avoided. For reproducible designs, this feels like the spiritual equivalent of a security-torx bit.
+
+## Standard Metric Machine Screws 
+
+### Socket Head Cap Screws 
+
+> Drawing ! 
+
+`{% include sheet.html src="hardware_sizes_shcs" %}`
+
+### Button Head Cap Screws
+
+> Drawing ! 
+
+`{% include sheet.html src="hardware_sizes_bhcs" %}`
+
+### Flat Head Cap Screws 
+
+> Drawing ! 
+
+`{% include sheet.html src="hardware_sizes_fhcs" %}`
+
+### Pitches, Approximate Washer Sizes 
+
+`{% include sheet.html src="hardware_sizes_misc" %}`

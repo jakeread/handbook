@@ -1,1 +1,3 @@
 # Overview of Machine Control
+
+A machine's mechanical embodiment is where our computers (microcontrollers and otherwise) meet the physical world, and the better we do to make that linkage linear, smooth and predictable the better our assembly (controller and mechanism) will perform. Control experts will remind you that a good [plant](<https://en.wikipedia.org/wiki/Plant_(control_theory)>) with a first-order model will often do better than a shoddy one with a third-order model or better. 
