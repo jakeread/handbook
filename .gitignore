@@ -19,3 +19,7 @@ _book/
 
 # ignore prior/unmerged:
 htmsmaa/
+
+# ignore anything in a 'raw' subfolder, 
+# to stash e.g. big images / unedited or uncompressed video in a _raw folder 
+*raw/
