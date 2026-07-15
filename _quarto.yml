@@ -16,13 +16,13 @@ book:
         - arch/guides_transmissions_actuation/index.qmd
     - part: "Design Fundamentals"
       chapters: 
+        - fund/kinematics/index.qmd
         - fund/principles/index.qmd
         - fund/structure/index.qmd
-        - fund/kinematics/index.qmd
         - fund/actuators.qmd
         - fund/elements.qmd
         - fund/analysis.qmd
-        - fund/materials.qmd
+        - fund/materials/index.qmd
         - fund/thermodynamics.qmd
     - part: "Applications and Practice"
       chapters: 

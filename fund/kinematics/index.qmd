@@ -2,7 +2,17 @@
 
 Kinematics refers to **how our machines move through space.** 
 
-## Layout
+## Degrees of Freedom 
+
+- BOB the block has 6DOF
+- each DOF may be constrained passively by a guide *or* actively with actuation, normally through a transmission 
+
+## Exact Constraint 
+
+- over constraining any DOF will lead to 'binding' where competing constraints disagree, e.g. two parallel rails are never truly parallel... 
+- under constraining a DOF leads to backlash, 
+
+## Kinematic Layout
 
 Picking an appropriate machine layout is probably one of the first things we do when thinking of a new machine: this is basically "in what order do the axes bolt on to one another" and there are a few prototypical forms we can see to get oriented:
 

@@ -1,90 +1,21 @@
-# Principles
+# Principles {#sec-principles}
 
-## Abbe (or Sine) Error 
+This chapter outlines the core principles that we *think* about while designing machines. Roughly organized:
 
-Abbe Error is the simple note that **angular error is amplified by distance** - if we point a very long stick with a very small angular error, our final error (at the tip of the stick) can still be large. 
+- things we care about (outcomes)
+- critical physics (reasons)
+- design-tuneable considerations (mitigating physics) 
 
-![abbe](images/abbe-error.gif)
+## Precision and Accuracy 
 
-Abbe error and misalignment often show up together, or, when we minimize misalignment we are also likely to be minimizing abbe errors. 
+These are not the same thing: precision is our ability to reliably target the same space in a repeatable manner (aka: repeatability), and accuracy is our ability to hit an *exactly addressed location in real space.*
 
-![sbp](images/abbe_bot.png) 
+![](images/precision-accuracy.png)  
+From <a href="https://en.wikipedia.org/wiki/Accuracy_and_precision" target="new">via WikiPedia</a>
 
-However, the trouble with laying elements *right on top of eachother* so as to be perfecty aligned is that they interfere. We cannot put the X axis directly through the workpiece, for example. So we will typically find that machines with large build volumes have larger "misalignments" between the work being done and the drives doing the work, i.e. in the shopbot above. In machines with typically small build volumes (as a fraction of total machine size) we will find that load-to-drive-offsets are small (again relative total machine size). 
+I.E. if, when I tell my X Axis to position at 100mm, it winds up at 101mm *every time* it is extremely precise, but not very accurate. If instead it targets somewhere between 100.1mm and 99.9mm every time, it is less precise but more accurate. 
 
-## Exact Constraint and Degrees of Freedom
-
-> See @sec-kinematics ?
-
-## Inertia 
-
-$$
-F=MA
-$$
-
-This is just to say that mass relates to our ability to accelerate. This is why you will find many machine designers in the wild with fetishes for lightweight-ness. It is often worth the effort, especially for the 'final stage' of flying mass: the tool head. 
-
-Consider also that minimizing mass is also likely to minimize stiffness. We can be fast *and* stiff *and* heavy if we also spend thousands of dollars on high power drives and use tens of kW of energy. 
-
-## Impedance Matching
-
-## Alignment of Forces 
-
-A relatively simple machine layout principle: whenever possible, we want loads to align with forces. 
-
-![slocum](images/slocum-alignment.png)  
-[from Slocum's FUNdaMENTALs](http://pergatory.mit.edu/resources/FUNdaMENTALs%20Book%20pdf/FUNdaMENTALs%20Topic%203.PDF) 
-
-## Stiffness and Compliance {#sec-fund-stiffness}
-
-Understanding the subtlety of stiffness is probably the most important element you can take away from this section of machine class. The idea of 'stiffness' will turn up throughout, so I need to start here. 
-
-Stiffness is simply *the way an object resists deformation in response to an applied force* so, how much something bends when we push on it. Machine design asks us to consider even very small deflections - hundredths of mm or less. This is why the use of castings are so common in heavy machinery: there is no better solution for stiffness than to add steel / iron to a structure: the balance is in reducing weight, so that our machines do not require infinite energy to move about. 
-
-For materials, stiffness is the slope of a stress-strain plot:
-
-![stress-strain](images/stress-strain.gif)
-
-But stiffness is not just a property of materials, it is a property of complete structure, or can be a property of some component, for example, linear ways are rated in `N / um` - the force required to deflect them by one thousandths of a millimeter. 
-
-![rail](images/rail-section.png)
-![um-per-n](images/um-per-n.png) 
-
-We can see that these are pretty impressive, the largest of which (with the highest preload) loading up to 800N (or 180 pounds of force) before moving even one micron. 
-
-Belts also have a stiffness rating, [this paper](https://www.mdpi.com/2218-6581/7/4/75/htm) discusses in fine detail the stiffness of GT2 belts, and we can get an idea of scaling here:
-
-![bsp](images/belt-stiffness.png)
-
-There's also a [gates document on belt tensile properties](ref/belt-tensile-properties.pdf)
-
-Just picking the 400mm length of GT2 belt above, we see it deflects about 10mm under 500N of load (just before it breaks), so we have ~ **0.05 N / um** of stiffness. On the other hand, even our smallest COTS linear guide above has **87 N / um** of stiffness, for about three orders of magnitude difference. These are the kinds of 'ball-parking' exercises you can do during early design phases to pick winners.
-
-### Stiffness and Chatter[^chatter]
-
-We want stiffness in our machines first because it means our positioning stages will be more accurate: if we command a motor to some position, but our machine is under load (gravity, some cutting force, etc), we will miss our target position by whatever the machine's deflection at that force is. For example given the belt example above, with only 50N of cutting force our machine will miss by one whole millimeter (this is also why machine designers get excited about i.e. linear encoders mounted directly on-axis). 
-
-This becomes more complex, though, when we have resonance and dynamics to think about. For example in a milling machine we see large cutting forces, but those forces are exerted at a (normally quite high) frequency (proportional to our spindle speed and flute count). If cutting forces excite our machine structure near it's natural frequency (or one of its harmonics), we are more likely to see chatter - which we can see in slo-mo in this excellent video from `Breaking Taps` 
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/aog0syGaZzQ?start=148" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-For example, if we have a spindle rotating at 6000 RPM, we have a rotational frequency of 100Hz (RPM / 60 = Hz). With four flutes, we are making a chip (and loading the machine's structure) at 400Hz (or once every 2.5 milliseconds). We can hear these frequencies when we machine, and experienced machinists rely on that input extensively. 
-
-Machines all have resonant frequencies, which are related to their stiffness (proportional) and mass (inversely):
-
-$$
-\omega = \sqrt{\frac{k}{m}}
-$$
-
-If we increase stiffness, we raise the resonant frequency - and if we add mass, we lower it (mass serving as a kind of damper). This might mean that, for our stiffness goal, we need to add lots of mass in order to lower the resonant frequency below the range of our expected excitation forces - or we might need to increase our stiffness in order to move the resonant freqency well above that range. 
-
-[^chatter]: Not sure if this is appropriate here or an aside... and probably my reasoning is worth checking. It may be a good idea to work this up as an example as well? 
-[^stepper-stiffness]: This would be another good nugget to expand on. Get the dyno out... 
-[^whereis-classic]: This should link to classical control, where we can discuss in more depth the relationship between a controller's $$K$$, its stiffness, and how i.e. bandwidth relates to how much $$K$$ we can dial in, etc etc... 
-
-### Beam Bending
-
-- stiffness of straight-ish elements 
+We can also discuss "resolution" - this refers to the size of the individually addressable locations in a machine. For example, if my same machine can only target either 100mm or 101mm, it has a 1mm resolution: not very great, even if we can hit that 100mm repeatably. We often see machine performance specified in terms of resolution because it's very achievable with digital controls. Converting resolution into real accuracy and repeatability is another thing, and typically requires good mechanical design. 
 
 ## Tolerance and Fit
 
@@ -93,9 +24,14 @@ If we increase stiffness, we raise the resonant frequency - and if we add mass, 
 It's worth noting that *nothing is truly flat* and (given no other inputs) a linear axis can only be as accurate as the structure it runs on. 
 
 - cheap to reference, expensive to machine
-- [lugs](https://gitlab.cba.mit.edu/jakeread/lug-capstans)
+- [laid-up grantries](https://gitlab.cba.mit.edu/jakeread/lug-capstans)
+- metabeam laid-up epoxy-glued beams 
+- zund multi-point bed adjustment 
 
 ### Concentricity 
+
+- obviously important for spindles / lathes, 
+- surprisingly important with pulley and capstan drives
 
 ### Adjustment 
 
@@ -109,9 +45,47 @@ Many adustments can be achieved with simple slots, otherwise aided with set-scre
 
 ### Clearance and Interference Fits 
 
+- 'clearance is clearance' so long as the machine is stiff 
 - e.g. calculating dowel press force / friction force 
 
-## Backlash 
+## Inertia 
+
+$$
+F=MA
+$$
+
+This is just to say that mass relates to our ability to accelerate. This is why you will find many machine designers in the wild with fetishes for lightweight-ness. It is often worth the effort, especially for the 'final stage' of flying mass: the tool head. 
+
+Consider also that minimizing mass is also likely to minimize stiffness. We can be fast *and* stiff *and* heavy if we also spend thousands of dollars on high power drives and use tens of kW of energy. 
+
+<!-- start friction, backlash and preload -->
+
+## Friction, Backlash and Preload 
+
+> Grouped together because all three of these are tightly related and tend to represent *strange operation around the origin* --- i.e. nonlinear behaviour while changing directions. 
+
+### Friction 
+
+I can't talk about preload without reminding us of friction: positive preload *always* engenders friction: as we increase the normal force between elements (loading them against one another) we decrease their likelihood of slipping past one another. 
+
+So, why not perfect preload / zero backlash all the time? Exactly because perfect precision does not exist: if we add even 1/1000 of one mm of clearance, we have backlash, but if we add 1/1000 of one mm of contact, we have preload. Extremely well engineered applications exist where clearances approach a perfect zero, but here even changes to a component's temperature affect it's size, thus changing clearances. This is why extremely advanced equipment goes to the length of temperature controlling all axis and drive systems:
+
+![cooling](images/dmg-cooling.png)  
+[from DMG Mori](https://www.youtube.com/watch?v=0E-_R8ZGZlY)
+
+#### Tribology
+
+- a stub ! 
+- bearing life, surface finish... 
+- galling 
+- relation to hertz ? 
+
+#### Hertz Contact Patches 
+
+- stiffness at "vanishing" points
+- bearing life, less-than 30% strain in the ball, it's all flexures ?
+
+### Backlash 
 
 "Backlash" is best described as the 'dead zone' between positive and negative control inputs. From [wiki](https://en.wikipedia.org/wiki/Backlash_(engineering)):
 
@@ -127,11 +101,17 @@ Backlash is an obvious result of poorly manufactured gear teeth, as drawn in the
 
 Backlash also exists in motion guides (linear and rotary bearings) and can (and often does) exist in structures. Basically, backlash is 'looseness' (aka "play") and wherever we can, we want our machines to feel 'tight' - if motors are powered on and holding torque, we should not be able to 'wiggle' anything about before meeting the motor's output, or finding stiffness (resistance to wiggling) in the machine. Any 'jiggle' or 'knocking' we can find when we try to move a machine's output around is backlash, and it's very hard to control for (since it's non-linear) - the best place to eliminate it is with good mechanical design. 
 
-## Preload 
+### Preload 
+
+#### Preload in Transmissions 
+
+> "There is no such thing as zero backlash;" even zero-clearance systems will exhibit some strange operation around the origin so long as we do not have infinite stiffness. 
 
 If we leave something too loose we find backlash, but if we over-tighten we find friction. This is why most gearboxes have some amount of backlash: ensuring positive clearance minimizes friction. There's a kind of zero-thickness 'zero clearance' zone between backlash and preload: 
 
 ![preload](images/preload-chart.png)
+
+#### Preload in Structures and Guides 
 
 Consider these bearings:
 
@@ -147,7 +127,7 @@ The same kind of concept can apply to motion elements, i.e. how these bearings a
 
 The same principle can apply in linear guides, lead screws, etc.
 
-### Practical Preloading 
+#### Practical Preloading 
 
 > TODO
 
@@ -155,34 +135,71 @@ The same principle can apply in linear guides, lead screws, etc.
 - preloading with offset-cam type rollers 
 - reminder that preloaded system *is as stiff as rest of the system **until** the preload force is overcome, then is as stiff as the preloading spring* 
 
-## Friction 
+<!-- end friction, backlash and preload -->
 
-I can't talk about preload without reminding us of friction: positive preload *always* engenders friction: as we increase the normal force between elements (loading them against one another) we decrease their likelihood of slipping past one another. 
+## Impedance Matching
 
-So, why not perfect preload / zero backlash all the time? Exactly because perfect precision does not exist: if we add even 1/1000 of one mm of clearance, we have backlash, but if we add 1/1000 of one mm of contact, we have preload. Extremely well engineered applications exist where clearances approach a perfect zero, but here even changes to a component's temperature affect it's size, thus changing clearances. This is why extremely advanced equipment goes to the length of temperature controlling all axis and drive systems:
+> Ilan should write this up properly, and numbers are all fake! 
 
-![cooling](images/dmg-cooling.png)  
-[from DMG Mori](https://www.youtube.com/watch?v=0E-_R8ZGZlY)
+- Impedance matching refers both to inertia and other drive characteristics, e.g. electric motors 'prefer' high speeds and low torque, but we typically want to drive higher masses / frictions at lower speeds. 
+- A proper write-up may begin with inertia only but then explore more complex time-domain analysis: friction, stiffness, ? 
 
-### Tribology
+It is easy to overlook the fact that our actuators' inertia is itself considerable, especially once transmission ratios are taken into account. Both represent mechanical impedance; a common rule of thumb is that our actuator's *reflected* inertia should be about equal to our driven stage's inertia. 
 
-- a stub ! 
-- bearing life, surface finish... 
-- galling 
-- relation to hertz ? 
+For example in the linear axis from @sec-one-linear-axis, the moving carriage has a mass of $500g$ and the actuator rotor weighs $120g$ with a rotational inertia of $0.00005 kg \cdot m^2$. The drive ratio is $X$ which makes for a reflected inertia of $0.00004 kg \cdot m^2$. 
 
-### Hertz Contact Patches 
+... 
 
-- stiffness at "vanishing" points
-- bearing life, less-than 30% strain in the ball, it's all flexures ?
+## Stiffness and Compliance {#sec-fund-stiffness}
 
-## Precision and Accuracy 
+Stiffness is simply *the way an object resists deformation in response to an applied force* so, how much something bends when we push on it. @sec-materials describes this more completely, here we are concerned with the combined stiffness of our machine's elements; structure (@sec-structure), transmissions, guideways and actuators, (@sec-guides-transmissions-actuation) etc... 
 
-These are not the same thing: precision is our ability to reliably target the same space in a repeatable manner (aka: repeatability), and accuracy is our ability to hit an *exactly addressed location in real space.*
+Machine design often asks us to consider even very small deflections - hundredths of mm or less. This is why the use of castings are so common in heavy machinery: there is no better solution for stiffness than to add steel / iron to a structure: the balance is in reducing weight, so that our machines do not require infinite energy to move about. 
 
-![](images/precision-accuracy.png)  
-From <a href="https://en.wikipedia.org/wiki/Accuracy_and_precision" target="new">via WikiPedia</a>
+For example, linear ways are rated in `N / um` - the force required to deflect them by one thousandths of a millimeter. 
 
-I.E. if, when I tell my X Axis to position at 100mm, it winds up at 101mm *every time* it is extremely precise, but not very accurate. If instead it targets somewhere between 100.1mm and 99.9mm every time, it is less precise but more accurate. 
+![rail](images/rail-section.png)
+![um-per-n](images/um-per-n.png) 
 
-We can also discuss "resolution" - this refers to the size of the individually addressable locations in a machine. For example, if my same machine can only target either 100mm or 101mm, it has a 1mm resolution: not very great, even if we can hit that 100mm repeatably. We often see machine performance specified in terms of resolution because it's very achievable with digital controls. Converting resolution into real accuracy and repeatability is another thing, and typically requires good mechanical design. 
+We can see that these are pretty impressive, the largest of which (with the highest preload) loading up to 800N (or 180 pounds of force) before moving even one micron. 
+
+Belts also have a stiffness rating, [this paper](https://www.mdpi.com/2218-6581/7/4/75/htm) discusses in fine detail the stiffness of GT2 belts, and we can get an idea of scaling here:
+
+![bsp](images/belt-stiffness.png)
+
+There's also a [gates document on belt tensile properties](ref/belt-tensile-properties.pdf)
+
+Just picking the 400mm length of GT2 belt above, we see it deflects about 10mm under 500N of load (just before it breaks), so we have ~ **0.05 N / um** of stiffness. On the other hand, even our smallest COTS linear guide above has **87 N / um** of stiffness, for about three orders of magnitude difference. These are the kinds of 'ball-parking' exercises you can do during early design phases to pick winners.
+
+Stiffness makes a big difference in our machines' overall precision while moving in free space. It also matters to varying degrees for process control, for example the forces acting on a laser cutter are only due to motion of the machine itself but machining generates much higher loads (see @sec-machining-chatter). 
+
+### Beam Bending
+
+- often, rough analysis of machine structure can be done using beam bending models... 
+
+## Vibrations and Resonance 
+
+Stiffness, mass, and excitation all couple to excite structures, transmissions etc. While the exact characteristics of these excitations (and our machine's passive and active responses to them) remains difficult to estimate in early design stages, they turn out to be a primary limit to motion performance. 
+
+- see the rise of input shapers / FIR based methods for velocity planning, 
+
+... 
+
+## Alignment of Forces 
+
+A relatively simple machine layout principle: whenever possible, we want loads to align with forces. 
+
+![slocum](images/slocum-alignment.png)  
+[from Slocum's FUNdaMENTALs](http://pergatory.mit.edu/resources/FUNdaMENTALs%20Book%20pdf/FUNdaMENTALs%20Topic%203.PDF) 
+
+## Abbe (or Sine) Error 
+
+Abbe Error is the simple note that **angular error is amplified by distance** - if we point a very long stick with a very small angular error, our final error (at the tip of the stick) can still be large. 
+
+![abbe](images/abbe-error.gif)
+
+Abbe error and misalignment often show up together, or, when we minimize misalignment we are also likely to be minimizing abbe errors. 
+
+![sbp](images/abbe_bot.png) 
+
+However, the trouble with laying elements *right on top of eachother* so as to be perfecty aligned is that they interfere. We cannot put the X axis directly through the workpiece, for example. So we will typically find that machines with large build volumes have larger "misalignments" between the work being done and the drives doing the work, i.e. in the shopbot above. In machines with typically small build volumes (as a fraction of total machine size) we will find that load-to-drive-offsets are small (again relative total machine size). 

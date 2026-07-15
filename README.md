@@ -12,7 +12,11 @@ This means all collaborators need to have lfs installed, use:
 
 After which, pulling should remain simple: `git pull` / `git clone` will download the relevant copies of large files. 
 
-This still means that large files should not be committed 
+To actually populate the local folder with files, do:
+
+`git lfs checkout` 
+
+> This still means that exceptionally large files should still be omitted from the repo, the `.gitignore` has a `*raw/` tag so anything loaded into a subfolder of this name will be ignored. 
 
 ## How to Quarto
 

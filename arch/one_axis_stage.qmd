@@ -1,4 +1,4 @@
-# The Single Axis Stage
+# The Single Axis Stage {#sec-one-linear-axis}
 
 - how it moves
 - key components 

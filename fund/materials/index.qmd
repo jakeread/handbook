@@ -1,9 +1,13 @@
-# Materials
+# Materials {#sec-materials}
 
 - materials is "a bus" but has some relevant sub-topics that would warrant a page or two
   - epoxy granite
   - cast iron ? 
   - lattices and architected materials 
+
+For materials, stiffness is the slope of a stress-strain plot:
+
+![stress-strain](images/stress-strain.gif)
 
 The "ashby chart" relates density and stiffness:
 

@@ -1,4 +1,4 @@
-# Structure
+# Structure {#sec-structure}
 
 ### Structural Loops 
 

@@ -4,6 +4,8 @@
 
 [How an ASML Lithography Machine Moves a Wafer](https://www.youtube.com/watch?v=1fOA85xtYxs)  
 
+> The mythical zero-backlash drive exists here because the actuator (magnetic field) operates directly on a *floating* axis, no real transmission or structural element exists. 
+
 ![asml-litho](asml-litho.png)
 
 ![air-bearings-and-interferometers](litho-interferometers.png)
